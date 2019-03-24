@@ -11,8 +11,9 @@ public class NewController : MonoBehaviour
 {
     enum Mode
     {
-        Normal,
-        Jet
+        NORMAL,
+        JET,
+        MODE_OVER
     }
     Mode mode;
 
@@ -24,20 +25,23 @@ public class NewController : MonoBehaviour
     Vector3 MoveVector; // 이동량 벡터
     Vector3 MoveDirection;
 
+
+    // 일반 비행 설정값들...
     [SerializeField] float MaxSpeed = 1.0f;
     [SerializeField] float Acceleration = 0.1f; // 가속도
     [SerializeField] float Deceleration = 0.5f; // 감속도
 
-    [SerializeField]
-    float XaxisSpeed = 30.0f, YaxisSpeed = 30.0f;
+    [SerializeField] float XaxisSpeed = 30.0f, YaxisSpeed = 30.0f;
     float X, Y;
 
-    [SerializeField]
-    float MinAngle = -45f, MaxAngle = 45f;
+    [SerializeField] float MinAngle = -45f, MaxAngle = 45f;
+
+
+
 
     private void Awake()
     {
-        mode = Mode.Normal;
+        mode = Mode.NORMAL;
         MoveVector = Vector3.zero;
     }
 
@@ -45,18 +49,40 @@ public class NewController : MonoBehaviour
     {
         PlayerTransform = GetComponent<Transform>();
         TPSCam = CameraTransform.GetComponent<NewTPSCamera>();
+
+        // 초기 카메라 모드 설정
+        TPSCam.mode = NewTPSCamera.Mode.NORMAL;
     }
     
+
     void Update()
     {
-        NormalStateControll();
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            mode++;
+            if (mode == Mode.MODE_OVER)
+                mode = 0;
+        }
+        
+        switch(mode)
+        {
+            case Mode.NORMAL:
+                NormalStateControll();
+                break;
+
+            case Mode.JET:
+                JetStateControll();
+                break;
+
+        }
     }
+
 
     // 일반 상태 회전 + 이동 기능입니다.
     void NormalStateControll()
     {
         // 카메라 모드 제어
-        TPSCam.mode = NewTPSCamera.Mode.Jet;
+        TPSCam.mode = NewTPSCamera.Mode.NORMAL;
 
         // 일반 상태 회전
         NormalStateRotation();
@@ -123,6 +149,7 @@ public class NewController : MonoBehaviour
         PlayerTransform.Translate(MoveVector);
     }
 
+
     void JetStateControll()
     {
         //
@@ -132,11 +159,52 @@ public class NewController : MonoBehaviour
         // 마우스 상하 : X축 회전
         // 키보드 좌우 : Y축 회전
         // Z축 회전 시 카메라도 같이 회전이 이루어짐.
-        // 이동 자체는 오브젝트의 정면으로만 진행합니다.
+        // 이동변환은 오브젝트의 정면으로만 진행합니다.
         //
 
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        
+        // 카메라 모드 제어
+        TPSCam.mode = NewTPSCamera.Mode.JETFOLLOW;
+
+
+        float TurnSpeed = 50.0f;
+
+        // 수직축
+        float yaw = Input.GetAxis("Horizontal");
+        if(yaw != 0)
+        {
+            Vector3 Axis = new Vector3(0, yaw, 0);
+            Vector3 newAxis = PlayerTransform.rotation * Axis;
+
+            Quaternion rot = Quaternion.AngleAxis(TurnSpeed * Time.deltaTime, newAxis);
+            PlayerTransform.rotation = rot * PlayerTransform.rotation;
+        }
+
+        // 수평축
+        float pitch = Input.GetAxis("Mouse Y");
+        if (pitch != 0)
+        {
+            Vector3 Axis = new Vector3(pitch, 0, 0);
+            Vector3 newAxis = PlayerTransform.rotation * Axis;
+
+            Quaternion rot = Quaternion.AngleAxis(TurnSpeed * 1.0f * Time.deltaTime, newAxis);
+            PlayerTransform.rotation = rot * PlayerTransform.rotation;
+        }
+
+        // 전후축
+        float roll = Input.GetAxis("Mouse X");
+        if (roll != 0)
+        {
+            Vector3 Axis = new Vector3(0, 0, -roll);
+            Vector3 newAxis = PlayerTransform.rotation * Axis;
+
+            Quaternion rot = Quaternion.AngleAxis(TurnSpeed * 1.0f * Time.deltaTime, newAxis);
+            PlayerTransform.rotation = rot * PlayerTransform.rotation;
+        }
+
+
+        // 직진 이동
+        PlayerTransform.Translate(Vector3.forward * 5.0f * Time.deltaTime);
+
+
     }
 }
