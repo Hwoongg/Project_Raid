@@ -284,7 +284,7 @@ MonoBehaviour:
   RotationSpeed: 1
   MaxCannonAngle: 180
   BulletSets:
-  - bulletObject: {fileID: 9184679732569359199, guid: 974d10c7540f8c84d95304b85f8940cd,
+  - bulletObject: {fileID: 6947194282850354931, guid: 5753f26682f1699478151b48b28c8a72,
       type: 3}
     ReloadTime: 3
     BulletTimer: 0

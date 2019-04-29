@@ -15,6 +15,8 @@ public class Health : MonoBehaviour
     bool isDead;
     protected bool damaged;
 
+    [SerializeField] GameObject objExplotionEfx;
+
 
     private void Awake()
     {
@@ -30,6 +32,7 @@ public class Health : MonoBehaviour
         
         if (currentHealth <= 0 && !isDead)
         {
+            GameObject.Instantiate(objExplotionEfx, gameObject.transform.position, gameObject.transform.rotation);
             Death();
         }
     }

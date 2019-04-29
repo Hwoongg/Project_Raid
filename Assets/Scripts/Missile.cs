@@ -15,6 +15,7 @@ public class Missile : Bullet
 
     float timer;
 
+    [SerializeField] GameObject objExplotionEfx;
     
     public override void Start()
     {
@@ -41,4 +42,9 @@ public class Missile : Bullet
 
     }
 
+    public override void Explotion()
+    {
+        GameObject.Instantiate(objExplotionEfx, gameObject.transform.position, Quaternion.identity);
+        base.Explotion();
+    }
 }
