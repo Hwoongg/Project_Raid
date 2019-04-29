@@ -13,17 +13,19 @@ public class NewController : MonoBehaviour
     {
         NORMAL,
         JET,
+        AIMING,
+        FREECAM,
         MODE_OVER
     }
     Mode mode;
-
-    [SerializeField]
+    
     Transform CameraTransform;
     NewTPSCamera TPSCam;
 
     Transform PlayerTransform;
     Vector3 MoveVector; // 이동량 벡터
     Vector3 MoveDirection;
+    public Transform SpineTransform;
 
 
     // 일반 비행 설정값들...
@@ -36,7 +38,10 @@ public class NewController : MonoBehaviour
 
     [SerializeField] float MinAngle = -45f, MaxAngle = 45f;
 
-
+    Animator anim;
+    //[SerializeField] Animator wingAnim;
+    //[SerializeField] GameObject NormalWing;
+    //[SerializeField] GameObject EvedeWing;
 
 
     private void Awake()
@@ -47,49 +52,98 @@ public class NewController : MonoBehaviour
 
     void Start()
     {
+        CameraTransform = Camera.main.transform;
+        
+        anim = GetComponent<Animator>();
         PlayerTransform = GetComponent<Transform>();
+        //SpineTransform = anim.GetBoneTransform(HumanBodyBones.Spine);
         TPSCam = CameraTransform.GetComponent<NewTPSCamera>();
 
         // 초기 카메라 모드 설정
         TPSCam.mode = NewTPSCamera.Mode.NORMAL;
+
+        
     }
     
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            mode++;
-            if (mode == Mode.MODE_OVER)
-                mode = 0;
-        }
         
-        switch(mode)
+        // 일반<->회피 기동 모드전환
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            mode = Mode.JET;
+            //wingAnim.SetBool("onEvade", true);
+            anim.SetBool("onEvade", true);
+            anim.SetBool("onAiming", false);
+            //NormalWing.SetActive(false);
+            //EvedeWing.SetActive(true);
+        }
+        else if (Input.GetMouseButton(1))
+        {
+            mode = Mode.AIMING;
+            anim.SetBool("onAiming", true);
+        }
+        else if (Input.GetKey(KeyCode.F))
+        {
+            mode = Mode.FREECAM;
+        }
+        else
+        {
+            mode = Mode.NORMAL;
+            //wingAnim.SetBool("onEvade", false);
+            anim.SetBool("onEvade", false);
+            anim.SetBool("onAiming", false);
+            //NormalWing.SetActive(true);
+            //EvedeWing.SetActive(false);
+        }
+
+        
+
+        switch (mode)
         {
             case Mode.NORMAL:
+                // 카메라 모드 제어
+                TPSCam.mode = NewTPSCamera.Mode.NORMAL;
                 NormalStateControll();
                 break;
 
             case Mode.JET:
+                // 카메라 모드 제어
+                TPSCam.mode = NewTPSCamera.Mode.JETFOLLOW;
                 JetStateControll();
                 break;
 
+            case Mode.AIMING:
+                TPSCam.mode = NewTPSCamera.Mode.AIMIMG;
+                NormalStateControll();
+                break;
+
+            case Mode.FREECAM:
+                TPSCam.mode = NewTPSCamera.Mode.FREE;
+                NormalStateRotation();
+                break;
+
         }
+        
+
+    }
+
+    private void LateUpdate()
+    {
+        SpineRotate();
     }
 
 
     // 일반 상태 회전 + 이동 기능입니다.
     void NormalStateControll()
     {
-        // 카메라 모드 제어
-        TPSCam.mode = NewTPSCamera.Mode.NORMAL;
-
+        
         // 일반 상태 회전
         NormalStateRotation();
 
         // 일반 상태 이동
         NormalStateMovement();
-
     }
 
     void NormalStateRotation()
@@ -109,12 +163,31 @@ public class NewController : MonoBehaviour
         // 
         // 처리부
         //
-        var rot = Quaternion.Euler(Y, X, 0);
+        var rot = Quaternion.Euler(Y + 90f, X + 180f, 0);
 
         PlayerTransform.rotation = Quaternion.Euler(Y, X + 180f, 0);
+
+
+        //float v = Input.GetAxis("Mouse X");
+        //float h = Input.GetAxis("Mouse Y");
+
+        //X += v * XaxisSpeed * Time.deltaTime;
+        //Y -= h * YaxisSpeed * Time.deltaTime;
+
+        //Y = Mathf.Clamp(Y, MinAngle, MaxAngle);
+
+        //PlayerTransform.rotation = Quaternion.AngleAxis(v * XaxisSpeed * Time.deltaTime, PlayerTransform.up) * PlayerTransform.rotation;
+        //PlayerTransform.rotation = Quaternion.AngleAxis(-h * YaxisSpeed * Time.deltaTime, PlayerTransform.right) * PlayerTransform.rotation;
+
+
+        //SpineTransform.rotation = Quaternion.AngleAxis(X, PlayerTransform.up) * SpineTransform.rotation;
+        //SpineTransform.rotation = Quaternion.AngleAxis(Y, PlayerTransform.right) * SpineTransform.rotation;
+
+        //SpineTransform.rotation = Quaternion.AngleAxis(45f, PlayerTransform.up) * SpineTransform.rotation;
+
     }
 
-    
+
     void NormalStateMovement()
     {
         // ////////////////////////////////////////////////////
@@ -122,6 +195,10 @@ public class NewController : MonoBehaviour
         // 카메라 기준 방향벡터를 이용한 이동변환을 시행합니다.
         // 전역-모델 좌표계 전환에 유의하여 사용해야 합니다.
         // 
+        // MoveVector를 기준으로 프레임마다 이동중입니다...
+        // 키가 입력되면 입력된 방향으로 MoveVector에 합연산을 진행합니다.
+        // 감속은 상시 모든 프레임에 적용됩니다.
+        //
         // ////////////////////////////////////////////////////
 
 
@@ -131,22 +208,39 @@ public class NewController : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
+        anim.SetFloat("dirHorizon", x);
+        anim.SetFloat("dirVertical", z);
+        //wingAnim.SetFloat("dirHorizon", x);
+        //wingAnim.SetFloat("dirVertical", z);
+
         // 월드 기준 벡터들입니다. 이동 시 모델좌표계로 사상시켜야 함.
-        Vector3 worldY = Input.GetKey(KeyCode.Space) ? new Vector3(0, 1, 0) : new Vector3(0, 0, 0);
+        Vector3 worldY = new Vector3(0, 0, 0);
+        if(Input.GetKey(KeyCode.Space))
+        {
+            worldY.Set(0, 1, 0);
+        }
+        else if(Input.GetKey(KeyCode.LeftControl))
+        {
+            worldY.Set(0, -1, 0);
+        }
+
         Vector3 cameraX = CameraTransform.right * x;
         Vector3 cameraZ = CameraTransform.forward * z;
 
+        // 최종 이동방향 결정
         Vector3 Movement = cameraX + cameraZ + worldY;
+        Movement.Normalize(); // 방향만 남기기 위해 정규화
+        Movement = PlayerTransform.worldToLocalMatrix * Movement; // Translate()에서 사용하기 위해 플레이어 기준으로 사상시킨다.
 
-        Movement.Normalize();
+        // 가속
+        if(MoveVector.magnitude < MaxSpeed)
+            MoveVector += Movement * Acceleration * Time.deltaTime;
 
-        Movement = PlayerTransform.worldToLocalMatrix * Movement;
-
-        MoveVector += Movement * Acceleration * Time.deltaTime;
-
+        // 감속
         MoveVector = MoveVector - (MoveVector * Deceleration * Time.deltaTime);
 
         PlayerTransform.Translate(MoveVector);
+        //PlayerTransform.Translate(Movement * 20.0f * Time.deltaTime);
     }
 
 
@@ -159,14 +253,16 @@ public class NewController : MonoBehaviour
         // 마우스 상하 : X축 회전
         // 키보드 좌우 : Y축 회전
         // Z축 회전 시 카메라도 같이 회전이 이루어짐.
-        // 이동변환은 오브젝트의 정면으로만 진행합니다.
+        // 이동은 오브젝트의 정면으로만 진행합니다.
         //
 
-        // 카메라 모드 제어
-        TPSCam.mode = NewTPSCamera.Mode.JETFOLLOW;
+        
 
 
-        float TurnSpeed = 50.0f;
+        float TurnSpeed = 30.0f;
+        anim.SetFloat("dirVertical", 1.0f);
+        anim.SetFloat("dirHorizon", 0.0f);
+        
 
         // 수직축
         float yaw = Input.GetAxis("Horizontal");
@@ -186,7 +282,7 @@ public class NewController : MonoBehaviour
             Vector3 Axis = new Vector3(pitch, 0, 0);
             Vector3 newAxis = PlayerTransform.rotation * Axis;
 
-            Quaternion rot = Quaternion.AngleAxis(TurnSpeed * 1.0f * Time.deltaTime, newAxis);
+            Quaternion rot = Quaternion.AngleAxis(TurnSpeed * 5.0f * Time.deltaTime, newAxis);
             PlayerTransform.rotation = rot * PlayerTransform.rotation;
         }
 
@@ -197,14 +293,33 @@ public class NewController : MonoBehaviour
             Vector3 Axis = new Vector3(0, 0, -roll);
             Vector3 newAxis = PlayerTransform.rotation * Axis;
 
-            Quaternion rot = Quaternion.AngleAxis(TurnSpeed * 1.0f * Time.deltaTime, newAxis);
+            Quaternion rot = Quaternion.AngleAxis(TurnSpeed * 5.0f * Time.deltaTime, newAxis);
             PlayerTransform.rotation = rot * PlayerTransform.rotation;
         }
 
 
         // 직진 이동
-        PlayerTransform.Translate(Vector3.forward * 5.0f * Time.deltaTime);
+        PlayerTransform.Translate(Vector3.forward * 20.0f * Time.deltaTime);
+
+    }
+
+    void SpineRotate()
+    {
+        //float v = Input.GetAxis("Mouse X");
+        //float h = Input.GetAxis("Mouse Y");
+
+        //X += v * XaxisSpeed * Time.deltaTime;
+        //Y -= h * YaxisSpeed * Time.deltaTime;
+
+        //Y = Mathf.Clamp(Y, MinAngle, MaxAngle);
+
+        //PlayerTransform.rotation = Quaternion.AngleAxis(v * XaxisSpeed * Time.deltaTime, PlayerTransform.up) * PlayerTransform.rotation;
+        //PlayerTransform.rotation = Quaternion.AngleAxis(-h * YaxisSpeed * Time.deltaTime, PlayerTransform.right) * PlayerTransform.rotation;
 
 
+        //SpineTransform.rotation = Quaternion.AngleAxis(X, PlayerTransform.up) * SpineTransform.rotation;
+        SpineTransform.rotation = Quaternion.AngleAxis(Y, PlayerTransform.right) * SpineTransform.rotation; // ★사용중
+
+        //SpineTransform.rotation = Quaternion.AngleAxis(45f, PlayerTransform.up) * SpineTransform.rotation;
     }
 }

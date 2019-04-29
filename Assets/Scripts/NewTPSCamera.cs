@@ -6,6 +6,7 @@ using UnityEngine;
 // 카메라 워크 스크립트 입니다.
 // 플레이어 머리 뒤의 상대좌표를 추적합니다.
 // 추적 방식에 따른 모드와 그에 따른 추적 방식 함수가 정의되어 있습니다.
+// 추적 좌표 : Normal(0, 3, -3.5) , Jet(0, 3, -4) , AIM(1, 2, -2.5)
 //
 
 public class NewTPSCamera : MonoBehaviour
@@ -16,17 +17,31 @@ public class NewTPSCamera : MonoBehaviour
         NONE,
         NORMAL,
         JETFOLLOW,
+        AIMIMG,
         FREE
     }
     [HideInInspector] public Mode mode;
 
-    Transform FollowTarget; // 추적 타겟
-    Vector3 LookCorrection; // 시점 보정값. 타겟보다 조금 더 위를 바라보도록
+    Transform FollowTarget; // 추적 타겟. 플레이어
+
+    Vector3 LookCorrection; // 시점 보정값. 타겟보다 조금 더 위를 바라보도록 상대좌표 지정.
 
     private Transform CamTransform;
 
-    public Transform Anchor;
+    public Transform NormalAnchor;
+    public Transform JetAnchor;
+    public Transform AimAnchor;
+    public Transform FrontAnchor;
 
+    [SerializeField] float FollowSpeed = 5.0f;
+
+    bool ModeChange;
+
+    float lerpSpeed;
+
+    bool isFreeCamState;
+    Vector3 FreeCamPos;
+    Quaternion FreeCamRot;
 
     private void Awake()
     {
@@ -34,10 +49,9 @@ public class NewTPSCamera : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
 
-        mode = Mode.FREE;
+        mode = Mode.NONE;
 
-        LookCorrection.Set(0, 2.0f, 0);
-
+        LookCorrection.Set(0, 2.0f, 2.0f);
     }
 
 
@@ -45,14 +59,23 @@ public class NewTPSCamera : MonoBehaviour
     {
         FollowTarget = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
-        Anchor.LookAt(FollowTarget.position + LookCorrection);
+        NormalAnchor.LookAt(FollowTarget.position + LookCorrection);
+        JetAnchor.LookAt(FollowTarget.position + LookCorrection);
+        AimAnchor.LookAt(FollowTarget.position + LookCorrection);
+        FrontAnchor.LookAt(FollowTarget.position + new Vector3(0, 2, 0));
+
+        //Transform spine = FollowTarget.GetComponent<NewController>().SpineTransform;
+        //NormalAnchor.SetParent(spine, true);
+        //JetAnchor.SetParent(spine, true);
+
+        
+        
     }
-    
     
 
     private void LateUpdate()
     {
-        switch(mode)
+        switch (mode)
         {
             case Mode.NONE:
                 break;
@@ -60,54 +83,96 @@ public class NewTPSCamera : MonoBehaviour
             case Mode.NORMAL:
                 NormalStateWork();
                 break;
-                
+
             case Mode.JETFOLLOW:
                 JetStateWork();
+                break;
+                
+            case Mode.AIMIMG:
+                AimingStateWork();
                 break;
 
             case Mode.FREE:
                 FreeStateWork();
                 break;
+
         }
     }
 
     // 기본 모드 카메라 워크입니다.
     void NormalStateWork()
     {
-        var newPos = FollowTarget.localToWorldMatrix * new Vector4(0.0f, 3.0f, -3.5f, 1);
+        isFreeCamState = false;
+        //// 타겟 뒤 상대좌표를 직접 계산하는 방식. 현재 오브젝트를 별도로 마련하여 생략했기 때문에 사용하지 않음.
+        //var newPos = FollowTarget.localToWorldMatrix * new Vector4(0.0f, 3.0f, -3.5f, 1);
 
-        CamTransform.position = newPos;
+        //CamTransform.position = newPos;
+        ////CamTransform.position = Vector3.Slerp(CamTransform.position, newPos, Time.deltaTime * FollowSpeed * 5.0f);
+        //CamTransform.LookAt(FollowTarget.position + LookCorrection);
 
-        CamTransform.LookAt(FollowTarget.position + LookCorrection);
 
-        //CamTransform.forward = Vector3.Normalize(FollowTarget.position - CamTransform.position);
+
+
+
+        //if(Vector3.Magnitude(CamTransform.position - NormalAnchor.position) < 0.5f)
+        //{
+        //    ModeChange = false;
+        //}
+
+        if (ModeChange)
+        {
+            CamTransform.position = Vector3.Slerp(CamTransform.position, NormalAnchor.position, lerpSpeed);
+            CamTransform.rotation = Quaternion.Slerp(CamTransform.rotation, NormalAnchor.rotation, lerpSpeed);
+            lerpSpeed += FollowSpeed * Time.deltaTime;
+            if (lerpSpeed > 1.0f)
+                ModeChange = false;
+        }
+        else
+        {
+            CamTransform.position = NormalAnchor.position;
+            CamTransform.rotation = NormalAnchor.rotation;
+        }
+
+        //CamTransform.position = Vector3.Lerp(CamTransform.position, NormalAnchor.position, Time.deltaTime * FollowSpeed * 5.0f);
+        //CamTransform.rotation = Quaternion.Lerp(CamTransform.rotation, NormalAnchor.rotation, Time.deltaTime * FollowSpeed * 5.0f);
+
     }
 
     // 추적모드 카메라 워크입니다.
     void JetStateWork()
     {
-        //var newPos = FollowTarget.localToWorldMatrix * new Vector4(0, 1, -6.0f, 1);
+        //CamTransform.position = JetAnchor.position;
+        //CamTransform.rotation = JetAnchor.rotation;
+        ModeChange = true;
+        lerpSpeed = 0;
 
-        //CamTransform.position = Vector3.Lerp(CamTransform.position, newPos, Time.fixedDeltaTime * 5.0f);
-
-        //CamTransform.LookAt(FollowTarget.transform.position + LookCorrection);
-
-        //// 추적 오브젝트가 얼마나 돌았는지 측정하여 같이 돈다.
-        //TargetTrackRotation();
-
-        CamTransform.position = Vector3.Lerp(CamTransform.position, Anchor.position, Time.fixedDeltaTime * 5.0f);
-
-        CamTransform.rotation = Anchor.rotation;
+        CamTransform.position = Vector3.Slerp(CamTransform.position, JetAnchor.position, Time.deltaTime * FollowSpeed);
+        CamTransform.rotation = Quaternion.Slerp(CamTransform.rotation, JetAnchor.rotation, Time.deltaTime * FollowSpeed);
 
 
-        
     }
 
     // 자유시점 카메라 워크입니다.
     void FreeStateWork()
     {
+        //FreeRotation();
+        if (!isFreeCamState)
+        {
+            SetFreeCamPosition();
+        }
 
-        FreeRotation();
+        ModeChange = true;
+        lerpSpeed = 0;
+
+        CamTransform.position = Vector3.Slerp(CamTransform.position, FreeCamPos, Time.deltaTime * FollowSpeed);
+        CamTransform.rotation = Quaternion.Slerp(CamTransform.rotation, FreeCamRot, Time.deltaTime * FollowSpeed);
+    }
+
+    void SetFreeCamPosition()
+    {
+        FreeCamPos = FrontAnchor.position;
+        FreeCamRot = FrontAnchor.rotation;
+        isFreeCamState = true;
     }
 
     // 플레이어를 중심에 놓고 회전합니다.
@@ -129,14 +194,17 @@ public class NewTPSCamera : MonoBehaviour
     void TargetTrackRotation()
     {
         // 각도를 잰다.
-
         Vector3 TargetHorizontal = Vector3.Cross(Vector3.up, FollowTarget.forward);
         float RotAngle = Vector3.SignedAngle(TargetHorizontal, FollowTarget.right, CamTransform.forward);
         
         // 나도 돈다
         Quaternion rot = Quaternion.AngleAxis(RotAngle, CamTransform.forward);
         CamTransform.rotation = rot * CamTransform.rotation;
-        
+    }
 
+    void AimingStateWork()
+    {
+        CamTransform.position = Vector3.Slerp(CamTransform.position, AimAnchor.position, Time.deltaTime * FollowSpeed);
+        CamTransform.rotation = Quaternion.Slerp(CamTransform.rotation, AimAnchor.rotation, Time.deltaTime * FollowSpeed);
     }
 }
