@@ -1,16 +1,19 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
-
     [SerializeField] int damagePerShot = 1;
     [SerializeField] float timeBetweenBullets = 0.1f;
     [SerializeField] float range = 100f;
     [SerializeField] int MaxBullet = 30;
+    public int GetMaxBullet => MaxBullet;
+
     int currentBullet;
+    public int GetCurrentBullet => currentBullet;
+
+    [SerializeField] GameLogicAmmoEvent AmmoEvent;
 
     float timer;
     Ray ShootRay;
@@ -23,11 +26,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] Text aimText;
 
     bool isReloading;
-    float Reloadtime = 1.0f;
+    float Reloadtime = 1.5f;
     Animator animator;
 
     [SerializeField] GameObject[] objFireEfx;
-    
+
     AudioSource GunSound;
 
 
@@ -42,14 +45,15 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         ScreenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
-        animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        //animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
-    
+
     void Update()
     {
         timer += Time.deltaTime;
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && !isReloading)
         {
             isReloading = true;
         }
@@ -60,11 +64,13 @@ public class Weapon : MonoBehaviour
             {
                 animator.SetBool("onFire", true);
                 if (timer >= timeBetweenBullets)
+                {
                     Fire();
+                }
             }
             else
             {
-                animator.SetBool("onFire", false); 
+                animator.SetBool("onFire", false);
             }
 
             if (timer >= timeBetweenBullets * effectDisplayTime)
@@ -87,7 +93,6 @@ public class Weapon : MonoBehaviour
 
         currentBullet -= 1;
 
-        
         ShootRay = Camera.main.ScreenPointToRay(ScreenCenter);
 
         // 각종 이펙트 재생
@@ -95,41 +100,44 @@ public class Weapon : MonoBehaviour
         //GunParticle.Stop(); // 파티클은 멈추고 시작해주는 작업 필요.
         //GunParticle.Play();
         for (int i = 0; i < objFireEfx.Length; i++)
+        {
             objFireEfx[i].SetActive(true);
-
+        }
+        AmmoEvent.Raise(new GameLogicAmmoEventType(currentBullet, false));
 
         // RayCast
-        if (Physics.Raycast(ShootRay,out ShootHit,range,shootableMask))
+        if (Physics.Raycast(ShootRay, out ShootHit, range, shootableMask))
         {
-            Health objHealth = ShootHit.collider.gameObject.GetComponent<Health>();
+            var objHealth = ShootHit.collider.gameObject.GetComponent<Health>();
             aimText.text = "Hit";
             objHealth.TakeDamage(1);
         }
-        else
-        {
-            aimText.text = "+";
-        }
-
+        //else
+        //{
+        //    aimText.text = "+";
+        //}
     }
 
     void Reload()
     {
+        AmmoEvent.Raise(new GameLogicAmmoEventType(currentBullet, false));
         currentBullet = MaxBullet;
         StartCoroutine("ReloadingAnimationPlay");
-
     }
 
     IEnumerator ReloadingAnimationPlay()
     {
+        animator.SetBool("isReloading", true);
         float animatorTime = 0f;
 
-        while(animatorTime < Reloadtime)
+        while (animatorTime < Reloadtime)
         {
             animatorTime += Time.deltaTime;
             animator.SetFloat("ReloadTime", animatorTime);
             yield return null;
         }
 
+        animator.SetBool("isReloading", false);
         animator.SetFloat("ReloadTime", 0f);
         isReloading = false;
         yield break;
@@ -139,8 +147,10 @@ public class Weapon : MonoBehaviour
     void DisableEffects()
     {
         for (int i = 0; i < objFireEfx.Length; i++)
+        {
             objFireEfx[i].SetActive(false);
+        }
     }
 
-    
+
 }

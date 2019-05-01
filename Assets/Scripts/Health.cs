@@ -7,7 +7,13 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     [SerializeField] int startingHealth = 100;
+    public int GetStartingHealth => startingHealth;
+    [SerializeField] GameLogicHealthEvent HealthEvent;
+    [SerializeField] bool IsPlayer = false;
+    [SerializeField] GameObject objExplotionEfx;
+
     int currentHealth;
+    public int GetCurrentHealth => currentHealth;
     //[SerializeField] Image damageImage;
     //[SerializeField] float flashSpeed = 0.5f;
     //[SerializeField] Color flashColor = new Color(1f, 0f, 0f, 0.2f);
@@ -15,24 +21,30 @@ public class Health : MonoBehaviour
     bool isDead;
     protected bool damaged;
 
-    [SerializeField] GameObject objExplotionEfx;
-
 
     private void Awake()
     {
+        IsPlayer = gameObject.tag == "Player";
+        //CustomDebug.LogCheckAssigned(HealthEvent, this);
         currentHealth = startingHealth;
+        CustomDebug.Log($"{currentHealth}");
     }
 
-    
     public void TakeDamage(int amount)
     {
         damaged = true;
 
         currentHealth -= amount;
-        
-        if (currentHealth <= 0 && !isDead)
+        CustomDebug.Log($"{currentHealth}");
+        if (IsPlayer)
         {
-            GameObject.Instantiate(objExplotionEfx, gameObject.transform.position, gameObject.transform.rotation);
+            HealthEvent.Raise(new GameLogicHealthEventType(currentHealth, startingHealth));
+        }
+        
+        // TODO: 플레이어 아닐떄에만 폭발사
+        if (currentHealth <= 0 && !isDead && !IsPlayer)
+        {
+            Instantiate(objExplotionEfx, transform.position, transform.rotation);
             Death();
         }
     }

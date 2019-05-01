@@ -38,6 +38,8 @@ public class NewController : MonoBehaviour
 
     [SerializeField] float MinAngle = -45f, MaxAngle = 45f;
 
+    [SerializeField] float JetMoveSpeed = 20.0f;
+
     Animator anim;
     //[SerializeField] Animator wingAnim;
     //[SerializeField] GameObject NormalWing;
@@ -259,7 +261,7 @@ public class NewController : MonoBehaviour
         
 
 
-        float TurnSpeed = 30.0f;
+        float TurnSpeed = 20.0f;
         anim.SetFloat("dirVertical", 1.0f);
         anim.SetFloat("dirHorizon", 0.0f);
         
@@ -299,7 +301,7 @@ public class NewController : MonoBehaviour
 
 
         // 직진 이동
-        PlayerTransform.Translate(Vector3.forward * 20.0f * Time.deltaTime);
+        PlayerTransform.Translate(Vector3.forward * JetMoveSpeed * Time.deltaTime);
 
     }
 

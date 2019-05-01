@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6712950515132081128}
   - component: {fileID: 6712950515502320485}
   - component: {fileID: 6712950515502320490}
-  - component: {fileID: 6482673246131122461}
+  - component: {fileID: 1190634683473747074}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -112,7 +112,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.49679986
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 2}
 --- !u!114 &6712950515502320490
 MonoBehaviour:
@@ -126,12 +126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6658fc548e4b5f24ebac7dad1c3b088b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 50
+  Speed: 30
   DestroyTime: 0
   objExplotionEfx: {fileID: 1224410393147878, guid: 03b4866f289d96244901023e6195f7a0,
     type: 3}
   RotSpeed: 10
---- !u!82 &6482673246131122461
+--- !u!82 &1190634683473747074
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c545026082c3cf848adc3281c4c4278f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -152,7 +152,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 1000
+  MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

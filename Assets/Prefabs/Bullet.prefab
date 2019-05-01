@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 50
-  DestroyTime: 1.5
+  DestroyTime: 2.5
 --- !u!1001 &6947194282118247388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 864bc30d9c0277d48b27aa9043cd9224, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 864bc30d9c0277d48b27aa9043cd9224, type: 3}
       propertyPath: m_LocalPosition.z
@@ -145,7 +145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4784809539567618, guid: 1b5fc64eb42451f48ad209c1357e2197, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4784809539567618, guid: 1b5fc64eb42451f48ad209c1357e2197, type: 3}
       propertyPath: m_LocalPosition.z

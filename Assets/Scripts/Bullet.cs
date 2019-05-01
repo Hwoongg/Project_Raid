@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
 
     [SerializeField] float DestroyTime = 0;
     float Timer;
-    
+
 
     public virtual void Awake()
     {
@@ -32,8 +32,7 @@ public class Bullet : MonoBehaviour
 
     public virtual void Explotion()
     {
-        //gameObject.SetActive(false);
-        GameObject.Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,7 +51,7 @@ public class Bullet : MonoBehaviour
 
     void SpinBullet()
     {
-        Quaternion rot = Quaternion.AngleAxis(1.0f, transform.forward);
+        Quaternion rot = Quaternion.AngleAxis(5.0f, transform.forward);
         transform.rotation = transform.rotation * rot;
     }
 }
