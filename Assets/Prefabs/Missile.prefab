@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6658fc548e4b5f24ebac7dad1c3b088b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 50
+  Speed: 30
   DestroyTime: 0
   objExplotionEfx: {fileID: 1224410393147878, guid: 03b4866f289d96244901023e6195f7a0,
     type: 3}
@@ -143,7 +143,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c545026082c3cf848adc3281c4c4278f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0

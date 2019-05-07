@@ -56,6 +56,5 @@ public class TitleSceneRule : RulePrototype
 
     public override void OnInvoked(eEventMessage msg, params object[] obj)
     {
-
     }
 };

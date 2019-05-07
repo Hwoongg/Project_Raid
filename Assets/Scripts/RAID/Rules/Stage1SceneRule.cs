@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Stage1SceneRule : RulePrototype
 {
-    public override void OnInvoked(eEventMessage msg, params object[] obj) => throw new System.NotImplementedException();
+    public override void OnInvoked(eEventMessage msg, params object[] obj)
+    {
+
+    }
 };

@@ -51,7 +51,7 @@ public class Bullet : MonoBehaviour
 
     void SpinBullet()
     {
-        Quaternion rot = Quaternion.AngleAxis(1.0f, transform.forward);
+        Quaternion rot = Quaternion.AngleAxis(5.0f, transform.forward);
         transform.rotation = transform.rotation * rot;
     }
 }

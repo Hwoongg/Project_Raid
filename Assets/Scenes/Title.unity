@@ -262,6 +262,10 @@ GameObject:
   m_Component:
   - component: {fileID: 522729324}
   - component: {fileID: 522729323}
+<<<<<<< HEAD
+=======
+  - component: {fileID: 522729322}
+>>>>>>> Server
   - component: {fileID: 522729321}
   m_Layer: 0
   m_Name: Title_Rules
@@ -282,7 +286,11 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 73b87c9d3381f5d4bba5bab103c43a6a, type: 3}
   m_PlayOnAwake: 1
+<<<<<<< HEAD
   m_Volume: 1
+=======
+  m_Volume: 0.3
+>>>>>>> Server
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -366,6 +374,39 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+<<<<<<< HEAD
+=======
+--- !u!114 &522729322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522729320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2ae177ed7737f84a85920f538f28f86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LogicEvents:
+  - {fileID: 11400000, guid: b070e1674edef4641bbb516971d72126, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 522729323}
+        m_MethodName: StartFlickeringPressAnyKey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityTitleLogicEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+>>>>>>> Server
 --- !u!114 &522729323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,6 +422,10 @@ MonoBehaviour:
   PressAnyKeys: {fileID: 995989056}
   PressAnyKeysTransparent: {fileID: 790972588}
   ScreenFader: {fileID: 979604007}
+<<<<<<< HEAD
+=======
+  UILogicEvent: {fileID: 11400000, guid: b070e1674edef4641bbb516971d72126, type: 2}
+>>>>>>> Server
   AlphaDescreaseIntensity: 0.03
   AlphaIncreaseIntensity: 0.03
   Interval: 0.05
@@ -602,7 +647,10 @@ GameObject:
   - component: {fileID: 979604006}
   - component: {fileID: 979604008}
   - component: {fileID: 979604007}
+<<<<<<< HEAD
   - component: {fileID: 979604009}
+=======
+>>>>>>> Server
   m_Layer: 5
   m_Name: Image_Fader
   m_TagString: Untagged
@@ -666,6 +714,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979604005}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 --- !u!114 &979604009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,6 +728,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AlphaIncrease: 0.01
+=======
+>>>>>>> Server
 --- !u!1 &995989055
 GameObject:
   m_ObjectHideFlags: 0

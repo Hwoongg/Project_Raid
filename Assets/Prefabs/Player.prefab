@@ -3028,7 +3028,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 89407456d4630764ba37be8bf806593a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.304
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3138,6 +3138,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
+  HealthEvent: {fileID: 0}
+  IsPlayer: 0
+  objExplotionEfx: {fileID: 0}
   damageImage: {fileID: 0}
   flashSpeed: 0.5
   flashColor: {r: 1, g: 0, b: 0, a: 0.2}
@@ -3178,6 +3181,7 @@ MonoBehaviour:
   timeBetweenBullets: 0.1
   range: 100
   MaxBullet: 30
+  AmmoEvent: {fileID: 0}
   aimText: {fileID: 0}
   objFireEfx:
   - {fileID: 6415498726339121515}
@@ -66192,17 +66196,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 9123739631646497776, guid: a0dfb1e6be1b5f441b4b707e6da05f81,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9123739630635787917, guid: a0dfb1e6be1b5f441b4b707e6da05f81,
         type: 3}
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9123739630669092768, guid: a0dfb1e6be1b5f441b4b707e6da05f81,
-        type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9123739631646497776, guid: a0dfb1e6be1b5f441b4b707e6da05f81,
         type: 3}
       propertyPath: m_Layer
       value: 10

@@ -8,7 +8,6 @@ public class Health : MonoBehaviour
 {
     [SerializeField] int startingHealth = 100;
     public int GetStartingHealth => startingHealth;
-    
     [SerializeField] bool IsPlayer = false;
     [SerializeField] GameObject objExplotionEfx;
 

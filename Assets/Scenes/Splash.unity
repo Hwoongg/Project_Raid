@@ -223,7 +223,11 @@ Transform:
   m_Children:
   - {fileID: 237666440}
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 2
+=======
+  m_RootOrder: 3
+>>>>>>> Server
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &237666439
 GameObject:
@@ -324,6 +328,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+<<<<<<< HEAD
 --- !u!1 &453572297
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,6 +398,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> Server
 --- !u!1 &474951119
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +411,10 @@ GameObject:
   - component: {fileID: 474951120}
   - component: {fileID: 474951122}
   - component: {fileID: 474951121}
+<<<<<<< HEAD
   - component: {fileID: 474951123}
+=======
+>>>>>>> Server
   m_Layer: 5
   m_Name: RawImage_Splash_Logo
   m_TagString: Untagged
@@ -466,6 +476,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474951119}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 --- !u!114 &474951123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,6 +490,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AlphaIncrease: 0.01
+=======
+>>>>>>> Server
 --- !u!1 &1122968973
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,7 +556,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 3
+=======
+  m_RootOrder: 4
+>>>>>>> Server
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1199227044
 GameObject:
@@ -728,6 +745,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1293827747}
   - component: {fileID: 1293827749}
+<<<<<<< HEAD
+=======
+  - component: {fileID: 1293827748}
+>>>>>>> Server
   - component: {fileID: 1293827750}
   m_Layer: 0
   m_Name: Splash_Rules
@@ -748,8 +769,43 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1293827748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293827746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fb2b34a96cc9a4dba33dd2a9597e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LogicEvents:
+  - {fileID: 11400000, guid: 1423ebac415afad40aecff8e31fab004, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1293827749}
+        m_MethodName: AppearSplashLogoGradually
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+    m_TypeName: UnitySplashLogicEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+>>>>>>> Server
 --- !u!114 &1293827749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,6 +818,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ab565b72afb6f48911b28527fe2e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+=======
+  SplashLogo: {fileID: 474951122}
+  UILogicEvent: {fileID: 11400000, guid: 1423ebac415afad40aecff8e31fab004, type: 2}
+  AlphaIncreaseIntensity: 0.01
+  Interval: 0.05
+>>>>>>> Server
 --- !u!82 &1293827750
 AudioSource:
   m_ObjectHideFlags: 0
@@ -887,5 +950,9 @@ Transform:
   m_Children:
   - {fileID: 1268128714}
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 1
+=======
+  m_RootOrder: 2
+>>>>>>> Server
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -21,7 +21,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] Text aimText;
 
     bool isReloading;
-    float Reloadtime = 1.0f;
+    float Reloadtime = 1.5f;
     Animator animator;
 
     [SerializeField] GameObject[] objFireEfx;
@@ -121,6 +121,7 @@ public class Weapon : MonoBehaviour
 
     IEnumerator ReloadingAnimationPlay()
     {
+        animator.SetBool("isReloading", true);
         float animatorTime = 0f;
 
         while (animatorTime < Reloadtime)
@@ -130,6 +131,7 @@ public class Weapon : MonoBehaviour
             yield return null;
         }
 
+        animator.SetBool("isReloading", false);
         animator.SetFloat("ReloadTime", 0f);
         isReloading = false;
         yield break;
