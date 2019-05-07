@@ -223,11 +223,7 @@ Transform:
   m_Children:
   - {fileID: 237666440}
   m_Father: {fileID: 0}
-<<<<<<< HEAD
-  m_RootOrder: 2
-=======
   m_RootOrder: 3
->>>>>>> Server
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &237666439
 GameObject:
@@ -328,78 +324,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
-<<<<<<< HEAD
---- !u!1 &453572297
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 453572300}
-  - component: {fileID: 453572299}
-  - component: {fileID: 453572298}
-  m_Layer: 0
-  m_Name: MEC Controller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &453572298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 453572297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d2433f4570c1404da40af9ea0b12741, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeBetweenSlowUpdateCalls: 0.14285715
-  ProfilerDebugAmount: 0
-  AutoTriggerManualTimeframe: 1
-  UpdateCoroutines: 0
-  FixedUpdateCoroutines: 0
-  LateUpdateCoroutines: 0
-  SlowUpdateCoroutines: 0
-  RealtimeUpdateCoroutines: 0
-  EditorUpdateCoroutines: 0
-  EditorSlowUpdateCoroutines: 0
-  EndOfFrameCoroutines: 0
-  ManualTimeframeCoroutines: 0
---- !u!114 &453572299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 453572297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5a1de2fd2ee3e4428a995cc1599ffe4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Timing: {fileID: 453572298}
---- !u!4 &453572300
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 453572297}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 414.32428, y: 310.20193, z: 38.105362}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-=======
->>>>>>> Server
 --- !u!1 &474951119
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,10 +335,6 @@ GameObject:
   - component: {fileID: 474951120}
   - component: {fileID: 474951122}
   - component: {fileID: 474951121}
-<<<<<<< HEAD
-  - component: {fileID: 474951123}
-=======
->>>>>>> Server
   m_Layer: 5
   m_Name: RawImage_Splash_Logo
   m_TagString: Untagged
@@ -476,22 +396,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474951119}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
---- !u!114 &474951123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474951119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f094a33dd6b80469e0aedd0386e4a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AlphaIncrease: 0.01
-=======
->>>>>>> Server
 --- !u!1 &1122968973
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,11 +460,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< HEAD
-  m_RootOrder: 3
-=======
   m_RootOrder: 4
->>>>>>> Server
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1199227044
 GameObject:
@@ -745,10 +645,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1293827747}
   - component: {fileID: 1293827749}
-<<<<<<< HEAD
-=======
   - component: {fileID: 1293827748}
->>>>>>> Server
   - component: {fileID: 1293827750}
   m_Layer: 0
   m_Name: Splash_Rules
@@ -769,10 +666,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< HEAD
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-=======
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1293827748
@@ -805,7 +698,6 @@ MonoBehaviour:
         m_CallState: 1
     m_TypeName: UnitySplashLogicEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
->>>>>>> Server
 --- !u!114 &1293827749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,13 +710,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ab565b72afb6f48911b28527fe2e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-=======
   SplashLogo: {fileID: 474951122}
   UILogicEvent: {fileID: 11400000, guid: 1423ebac415afad40aecff8e31fab004, type: 2}
   AlphaIncreaseIntensity: 0.01
   Interval: 0.05
->>>>>>> Server
 --- !u!82 &1293827750
 AudioSource:
   m_ObjectHideFlags: 0
@@ -950,9 +839,5 @@ Transform:
   m_Children:
   - {fileID: 1268128714}
   m_Father: {fileID: 0}
-<<<<<<< HEAD
-  m_RootOrder: 1
-=======
   m_RootOrder: 2
->>>>>>> Server
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
