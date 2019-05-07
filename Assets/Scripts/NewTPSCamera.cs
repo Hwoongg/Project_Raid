@@ -48,6 +48,7 @@ public class NewTPSCamera : MonoBehaviour
         CamTransform = GetComponent<Transform>();
 
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         mode = Mode.NONE;
 
@@ -57,7 +58,8 @@ public class NewTPSCamera : MonoBehaviour
 
     void Start()
     {
-        FollowTarget = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        //FollowTarget = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        FollowTarget = GameObject.Find("Player").transform;
 
         NormalAnchor.LookAt(FollowTarget.position + LookCorrection);
         JetAnchor.LookAt(FollowTarget.position + LookCorrection);

@@ -71,6 +71,7 @@ public class Boss : MonoBehaviour
     {
         for (int i = 0; i < LeftFireTransform.Length; i++)
         {
+            CustomDebug.Log($"Missiles launched! count :{ LeftFireTransform.Length.ToString()}", this);
             Instantiate(objMissile, LeftFireTransform[i].position, LeftFireTransform[i].rotation);
             Instantiate(objMissile, RightFireTransform[i].position, RightFireTransform[i].rotation);
             yield return new WaitForSeconds(0.3f);

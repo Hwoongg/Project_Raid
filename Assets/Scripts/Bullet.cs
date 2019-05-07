@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
 
     [SerializeField] float DestroyTime = 0;
     float Timer;
-    
+
 
     public virtual void Awake()
     {
@@ -32,8 +32,7 @@ public class Bullet : MonoBehaviour
 
     public virtual void Explotion()
     {
-        //gameObject.SetActive(false);
-        GameObject.Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -8,26 +8,30 @@ using UnityEngine;
 
 public class Missile : Bullet
 {
-    
+    [SerializeField] GameObject objExplotionEfx;
     [SerializeField] float RotSpeed = 10.0f;
 
     Transform Target;
 
     float timer;
 
-    [SerializeField] GameObject objExplotionEfx;
     
     public override void Start()
     {
         Target = GameObject.FindGameObjectWithTag("Player").transform;
+        CustomDebug.LogCheckAssigned(Target, this);
         timer = 0;
     }
     
     public override void Update()
     {
+        
         timer += Time.deltaTime;
 
-       
+        if (Utils.IsNull(Target))
+        {
+            return;
+        }
 
         if (timer > 2.0f)
         {
@@ -47,4 +51,5 @@ public class Missile : Bullet
         GameObject.Instantiate(objExplotionEfx, gameObject.transform.position, Quaternion.identity);
         base.Explotion();
     }
+
 }

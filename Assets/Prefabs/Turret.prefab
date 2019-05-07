@@ -241,6 +241,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2363499498263246158}
+  - component: {fileID: 2363499498256046760}
   - component: {fileID: 2363499498263341421}
   - component: {fileID: 2363499498263341411}
   m_Layer: 0
@@ -267,6 +268,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2363499498256046760
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2363499498263341422}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: f3e85c0455c78f349b393d8f1122e0da, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &2363499498263341421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,7 +304,7 @@ MonoBehaviour:
   RotationSpeed: 1
   MaxCannonAngle: 180
   BulletSets:
-  - bulletObject: {fileID: 6947194282850354931, guid: 5753f26682f1699478151b48b28c8a72,
+  - bulletObject: {fileID: 9184679732569359199, guid: 974d10c7540f8c84d95304b85f8940cd,
       type: 3}
     ReloadTime: 3
     BulletTimer: 0
@@ -299,7 +319,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 50
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5505465902311117258
 GameObject:
