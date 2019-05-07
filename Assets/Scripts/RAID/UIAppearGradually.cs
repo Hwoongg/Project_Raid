@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class UIAppearGradually : MonoBehaviour, ILogicEvent
 {
-    CanvasRenderer SplashLogo;
+    CanvasRenderer Image;
     [SerializeField, Header("Increasing amount of splash alpha value.")]
     float AlphaIncrease = 0.01f;
     
@@ -20,8 +20,8 @@ public class UIAppearGradually : MonoBehaviour, ILogicEvent
 
     void Start()
     {
-        SplashLogo = GetComponent<CanvasRenderer>();
-        SplashLogo.SetAlpha(0.0f);
+        Image = GetComponent<CanvasRenderer>();
+        Image.SetAlpha(0.0f);
     }
     
     void OnDisable()
@@ -35,12 +35,12 @@ public class UIAppearGradually : MonoBehaviour, ILogicEvent
         // Make secure this logic executes once.
         if (false == IsMovingNextScene)
         {
-            float alpha = SplashLogo.GetAlpha();
+            float alpha = Image.GetAlpha();
             float counter = 0.0f;
             while (alpha <= 1.0f && false == IsMovingNextScene)
             {
                 alpha += AlphaIncrease * Time.deltaTime;
-                SplashLogo.SetAlpha(alpha);
+                Image.SetAlpha(alpha);
                 while (counter <= 0.5f)
                 {
                     counter += Time.time;

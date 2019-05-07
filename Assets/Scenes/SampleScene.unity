@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.11375735, g: 0.11584429, b: 0.13422945, a: 1}
+  m_IndirectSpecularColor: {r: 0.009286573, g: 0.009534854, b: 0.012690461, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4458,7 +4458,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
-  HealthEvent: {fileID: 11400000, guid: 8bb6d730f6083f84ea766a86e295624c, type: 2}
   IsPlayer: 0
   objExplotionEfx: {fileID: 1224410393147878, guid: 03b4866f289d96244901023e6195f7a0,
     type: 3}
@@ -4532,7 +4531,6 @@ MonoBehaviour:
   timeBetweenBullets: 0.1
   range: 100
   MaxBullet: 30
-  AmmoEvent: {fileID: 11400000, guid: 06a31f90fc26c4445b76f7fd257469da, type: 2}
   aimText: {fileID: 1016142117}
   objFireEfx:
   - {fileID: 7227369578041699483}
@@ -4547,7 +4545,6 @@ GameObject:
   m_Component:
   - component: {fileID: 303428311}
   - component: {fileID: 303428310}
-  - component: {fileID: 303428309}
   - component: {fileID: 303428308}
   m_Layer: 0
   m_Name: Stage1_Rule
@@ -4571,48 +4568,6 @@ MonoBehaviour:
   InitialRemainingTime: 300
   RemainingTime: 0
   ElapsedTime: 0
---- !u!114 &303428309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 303428307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15ba02b529d61648a4d813d2a879839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LogicEvents:
-  - {fileID: 11400000, guid: 1500e0b8f4543a142a14245124dd2948, type: 2}
-  - {fileID: 11400000, guid: 06a31f90fc26c4445b76f7fd257469da, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1068990185}
-        m_MethodName: OnAmmoCountUpdated
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2073610448}
-        m_MethodName: OnRemainingTimeUpdate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityStage1LogicEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!114 &303428310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4625,7 +4580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 255b347b2cd93524db7d06530e497df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeEvent: {fileID: 11400000, guid: 1500e0b8f4543a142a14245124dd2948, type: 2}
 --- !u!4 &303428311
 Transform:
   m_ObjectHideFlags: 0
@@ -5103,7 +5057,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 224.2, y: 56.299995}
+  m_AnchoredPosition: {x: 224.19995, y: 56.30005}
   m_SizeDelta: {x: 164.3, y: 113.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &720517119
@@ -5161,7 +5115,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialHealthPoint: 0
-  HealthComponent: {fileID: 279315311}
 --- !u!1 &784774513
 GameObject:
   m_ObjectHideFlags: 0
@@ -5751,7 +5704,6 @@ MonoBehaviour:
   CurrentAmmoCount: 0
   InitialAmmoCount: 0
   IsInfinity: 0
-  WeaponComponent: {fileID: 279315317}
 --- !u!114 &1068990186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5810,7 +5762,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -158.36493, y: 23.700012}
+  m_AnchoredPosition: {x: -158.36499, y: 23.700073}
   m_SizeDelta: {x: 316.65, y: 47.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1133613422
@@ -11601,7 +11553,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -221.37, y: 59.2}
+  m_AnchoredPosition: {x: -221.36987, y: 59.19995}
   m_SizeDelta: {x: 442.65, y: 118.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1446820124
@@ -12046,7 +11998,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.94162965}
   m_AnchorMax: {x: 0, y: 0.94162965}
-  m_AnchoredPosition: {x: 115.7, y: -48.699997}
+  m_AnchoredPosition: {x: 115.69995, y: -48.69995}
   m_SizeDelta: {x: 231.4, y: 93.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1617132707
@@ -12619,7 +12571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cca25edb5d28b547b69ad168a87b6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeRule: {fileID: 303428308}
 --- !u!1 &2113934574
 GameObject:
   m_ObjectHideFlags: 0

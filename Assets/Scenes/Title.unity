@@ -262,7 +262,6 @@ GameObject:
   m_Component:
   - component: {fileID: 522729324}
   - component: {fileID: 522729323}
-  - component: {fileID: 522729322}
   - component: {fileID: 522729321}
   m_Layer: 0
   m_Name: Title_Rules
@@ -367,36 +366,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &522729322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522729320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2ae177ed7737f84a85920f538f28f86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LogicEvents:
-  - {fileID: 11400000, guid: b070e1674edef4641bbb516971d72126, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 522729323}
-        m_MethodName: StartFlickeringPressAnyKey
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityTitleLogicEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!114 &522729323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,16 +378,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a10f27d0b3bb2343b4f25e26b8ad260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PressAnyKeys: {fileID: 995989056}
-  PressAnyKeysTransparent: {fileID: 790972588}
-  ScreenFader: {fileID: 979604007}
-  UILogicEvent: {fileID: 11400000, guid: b070e1674edef4641bbb516971d72126, type: 2}
-  AlphaDescreaseIntensity: 0.03
-  AlphaIncreaseIntensity: 0.03
-  Interval: 0.05
-  PlayFlyAwayAnims:
-  - {fileID: 1366425876}
-  - {fileID: 919378603}
 --- !u!4 &522729324
 Transform:
   m_ObjectHideFlags: 0
@@ -617,12 +576,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &919378603 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 9500000, guid: f4cc45579b42e2e4f8a4c4054dc7d73e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1034084827}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &979604005
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,6 +587,7 @@ GameObject:
   - component: {fileID: 979604006}
   - component: {fileID: 979604008}
   - component: {fileID: 979604007}
+  - component: {fileID: 979604009}
   m_Layer: 5
   m_Name: Image_Fader
   m_TagString: Untagged
@@ -697,6 +651,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979604005}
   m_CullTransparentMesh: 1
+--- !u!114 &979604009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979604005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f094a33dd6b80469e0aedd0386e4a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaIncrease: 0.01
 --- !u!1 &995989055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,12 +1766,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034690787}
   m_CullTransparentMesh: 1
---- !u!95 &1366425876 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 9500000, guid: f4cc45579b42e2e4f8a4c4054dc7d73e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1390740449}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1390740449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4107,7 +4068,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!108 &1776507286
 Light:
@@ -4319,6 +4280,7 @@ GameObject:
   - component: {fileID: 1931213568}
   - component: {fileID: 1931213570}
   - component: {fileID: 1931213569}
+  - component: {fileID: 1931213571}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4390,6 +4352,22 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1931213571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931213567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b97b86ac472e0b42803a0dbaa943599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PressAnyKeys: {fileID: 995989056}
+  PressAnyKeysTransparent: {fileID: 790972588}
+  AlphaDescrease: 0.03
+  AlphaIncrease: 0.03
 --- !u!1 &2045651968
 GameObject:
   m_ObjectHideFlags: 0

@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 474951120}
   - component: {fileID: 474951122}
   - component: {fileID: 474951121}
+  - component: {fileID: 474951123}
   m_Layer: 5
   m_Name: RawImage_Splash_Logo
   m_TagString: Untagged
@@ -396,6 +397,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474951119}
   m_CullTransparentMesh: 1
+--- !u!114 &474951123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474951119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f094a33dd6b80469e0aedd0386e4a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaIncrease: 0.01
 --- !u!1 &1122968973
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +659,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1293827747}
   - component: {fileID: 1293827749}
-  - component: {fileID: 1293827748}
   - component: {fileID: 1293827750}
   m_Layer: 0
   m_Name: Splash_Rules
@@ -668,36 +681,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1293827748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1293827746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2fb2b34a96cc9a4dba33dd2a9597e2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LogicEvents:
-  - {fileID: 11400000, guid: 1423ebac415afad40aecff8e31fab004, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1293827749}
-        m_MethodName: AppearSplashLogoGradually
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnitySplashLogicEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!114 &1293827749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,10 +693,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ab565b72afb6f48911b28527fe2e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SplashLogo: {fileID: 474951122}
-  UILogicEvent: {fileID: 11400000, guid: 1423ebac415afad40aecff8e31fab004, type: 2}
-  AlphaIncreaseIntensity: 0.01
-  Interval: 0.05
 --- !u!82 &1293827750
 AudioSource:
   m_ObjectHideFlags: 0

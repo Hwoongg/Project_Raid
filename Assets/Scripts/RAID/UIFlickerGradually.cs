@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ImageFlickerGradually : MonoBehaviour, ILogicEvent
+public class UIFlickerGradually : MonoBehaviour, ILogicEvent
 {
     [SerializeField] CanvasRenderer PressAnyKeys;
     [SerializeField] CanvasRenderer PressAnyKeysTransparent;
@@ -51,7 +51,7 @@ public class ImageFlickerGradually : MonoBehaviour, ILogicEvent
         }
     }
 
-    void ILogicEvent.OnInvoked(eEventMessage msg, params object[] obj)
+    public void OnInvoked(eEventMessage msg, params object[] obj)
     {
         switch (msg)
         {
