@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+//
+// 화면 깜빡이 기능이 추가된 플레이어 전용 상속 클래스
+//
+
 public class PlayerHealth : Health
 {
 
