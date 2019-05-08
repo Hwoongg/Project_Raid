@@ -39,7 +39,7 @@ public class TimeRule : MonoBehaviour
             }
             else
             {
-                CustomDebug.Log($"Remaining Time is zero! Coroutine finished~", this);
+                Dbg.Log($"Remaining Time is zero! Coroutine finished~", this);
                 // TODO: change this coroutine repeatedly turns on and off.
                 break;
             }

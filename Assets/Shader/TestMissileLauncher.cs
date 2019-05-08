@@ -6,7 +6,7 @@ public class TestMissileLauncher : MonoBehaviour
 {
     void Start()
     {
-        CustomDebug.LogCheckAssigned(Missile, this);
+        Dbg.LogCheckAssigned(Missile, this);
     }
 
     void Update()

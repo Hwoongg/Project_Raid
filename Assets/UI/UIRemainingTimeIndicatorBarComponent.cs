@@ -18,7 +18,7 @@ public class UIRemainingTimeIndicatorBarComponent : MonoBehaviour, ILogicEvent
     {
         RemainingTimeBar = GetComponent<Image>();
         RemainingTimeBar.fillMethod = Image.FillMethod.Horizontal;
-        CustomDebug.LogCheckAssigned(RemainingTimeBar);
+        Dbg.LogCheckAssigned(RemainingTimeBar);
     }
 
     void OnDisable()

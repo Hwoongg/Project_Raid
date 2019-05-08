@@ -13,7 +13,7 @@ public abstract class RulePrototype : MonoBehaviour, ILogicEvent
 
     public virtual void OnEnable()
     {
-        EventSet = new EventSet(eEventType.FOR_UI, this);
+        EventSet = new EventSet(eEventType.FOR_ALL, this);
         LogicEventListener.RegisterEvent(EventSet);
     }
 

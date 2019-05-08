@@ -33,7 +33,7 @@ public class UICrosshairComponent : MonoBehaviour
         OriginalPosition.Set(RectTf.anchoredPosition.x, RectTf.anchoredPosition.y);
         MovePositionRate = OriginalPosition * MovingIntensity;
         PositionLimit = OriginalPosition + MovePositionRate;
-        CustomDebug.Log($"Current Moving Rate is [{MovePositionRate.x.ToString()}, {MovePositionRate.y.ToString()}].");
+        Dbg.Log($"Current Moving Rate is [{MovePositionRate.x.ToString()}, {MovePositionRate.y.ToString()}].");
     }
 
     public void OnShotFired()

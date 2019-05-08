@@ -37,7 +37,7 @@ public static class LogicEventListener
 
         if (Utils.IsNull(evt))
         {
-            CustomDebug.LogE($"Logic Event Tuple is null. Check RegisterEvent()");
+            Dbg.LogE($"Logic Event Tuple is null. Check RegisterEvent()");
         }
         logicEventSet.Add(evt);
     }
@@ -51,7 +51,7 @@ public static class LogicEventListener
 
         if (Utils.IsNull(evt))
         {
-            CustomDebug.LogE($"Logic Event Tuple is null. Check RegisterEvent()");
+            Dbg.LogE($"Logic Event Tuple is null. Check RegisterEvent()");
         }
 
         logicEventSet.Remove(evt);

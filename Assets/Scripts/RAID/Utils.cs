@@ -4,14 +4,24 @@ using UnityEngine;
 
 public static class Utils
 {
-    public static bool IsNull<Ty>(Ty o)
+    public static bool IsNull(UnityEngine.Object o)
     {
-        return (null == o && ReferenceEquals(o, null));
+        return (null == o || ReferenceEquals(o, null));
     }
 
-    public static bool IsValid<Ty>(Ty o)
+    public static bool IsNull(object o)
     {
-        return !IsNull<Ty>(o);
+        return (null == o || ReferenceEquals(o, null));
+    }
+
+    public static bool IsValid(UnityEngine.Object o)
+    {
+        return (null != o && !ReferenceEquals(o, null));
+    }
+
+    public static bool IsValid(object o)
+    {
+        return (null != o && !ReferenceEquals(o, null));
     }
 
     public static bool AreSame<Ty>(Ty o1, Ty o2) where Ty : UnityEngine.Object

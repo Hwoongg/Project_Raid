@@ -19,7 +19,7 @@ public class Missile : Bullet
     public override void Start()
     {
         Target = GameObject.FindGameObjectWithTag("Player").transform;
-        CustomDebug.LogCheckAssigned(Target, this);
+        Dbg.LogCheckAssigned(Target, this);
         timer = 0;
     }
     

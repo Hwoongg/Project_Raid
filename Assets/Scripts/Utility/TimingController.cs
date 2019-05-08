@@ -10,7 +10,7 @@ public class TimingController : MonoBehaviour
     void Awake()
     {
         Timing = GetComponent<MEC.Timing>();
-        CustomDebug.LogCheckAssigned(Timing, this);
+        Dbg.LogCheckAssigned(Timing, this);
         DontDestroyOnLoad(gameObject);
     }
 };
