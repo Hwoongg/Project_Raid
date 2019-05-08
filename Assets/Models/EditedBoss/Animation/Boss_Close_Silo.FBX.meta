@@ -1,0 +1,338 @@
+fileFormatVersion: 2
+guid: 8859cdc0c219a8c43b1e62cf651e0636
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Armor017
+    100002: Armor018
+    100004: Armor019
+    100006: Armor020
+    100008: Armor021
+    100010: Armor022
+    100012: Armor023
+    100014: Armor024
+    100016: Armor025
+    100018: Armor026
+    100020: Armor027
+    100022: Armor028
+    100024: Armor029
+    100026: Armor030
+    100028: Armor1
+    100030: Armor10
+    100032: Armor11
+    100034: Armor12
+    100036: Armor14
+    100038: Armor15
+    100040: Armor16
+    100042: Armor2
+    100044: Armor3
+    100046: Armor4
+    100048: Armor5
+    100050: Armor6
+    100052: Armor7
+    100054: Armor8
+    100056: Armor9
+    100058: Body
+    100060: //RootNode
+    100062: Character001
+    100064: Character0015Bone001
+    100066: Character0015Bone001Bone001
+    100068: Character0015Bone001Bone001Bone001
+    100070: Character0015Bone001Bone001Bone001Bone001
+    100072: Character001Hub001
+    100074: Character001Hub001Bone001
+    100076: Character001Hub001Bone002
+    100078: Character001Hub001Bone003
+    100080: Character001Hub001Bone004
+    100082: Character001Tail1
+    100084: Character001Tail1 1
+    100086: Character001Tail1 2
+    100088: Character001Tail2
+    100090: Character001Tail2 1
+    100092: Character001Tail2 2
+    100094: Character001Tail3
+    100096: Character001Tail3 1
+    100098: Character001Tail3 2
+    100100: Character001Tail4
+    100102: Character001Tail4 1
+    100104: Character001Tail4 2
+    100106: Character001Tail5
+    100108: Character001Tail5 1
+    100110: Character001Tail5 2
+    100112: Core
+    100114: Jaw
+    100116: Jaw_armed
+    100118: Jaw_missile
+    100120: neck_armed
+    100122: Skull_Effect
+    100124: Tail_Fin
+    100126: upper_jaw
+    100128: Wing_Armed
+    100130: Wings_lights
+    400000: Armor017
+    400002: Armor018
+    400004: Armor019
+    400006: Armor020
+    400008: Armor021
+    400010: Armor022
+    400012: Armor023
+    400014: Armor024
+    400016: Armor025
+    400018: Armor026
+    400020: Armor027
+    400022: Armor028
+    400024: Armor029
+    400026: Armor030
+    400028: Armor1
+    400030: Armor10
+    400032: Armor11
+    400034: Armor12
+    400036: Armor14
+    400038: Armor15
+    400040: Armor16
+    400042: Armor2
+    400044: Armor3
+    400046: Armor4
+    400048: Armor5
+    400050: Armor6
+    400052: Armor7
+    400054: Armor8
+    400056: Armor9
+    400058: Body
+    400060: //RootNode
+    400062: Character001
+    400064: Character0015Bone001
+    400066: Character0015Bone001Bone001
+    400068: Character0015Bone001Bone001Bone001
+    400070: Character0015Bone001Bone001Bone001Bone001
+    400072: Character001Hub001
+    400074: Character001Hub001Bone001
+    400076: Character001Hub001Bone002
+    400078: Character001Hub001Bone003
+    400080: Character001Hub001Bone004
+    400082: Character001Tail1
+    400084: Character001Tail1 1
+    400086: Character001Tail1 2
+    400088: Character001Tail2
+    400090: Character001Tail2 1
+    400092: Character001Tail2 2
+    400094: Character001Tail3
+    400096: Character001Tail3 1
+    400098: Character001Tail3 2
+    400100: Character001Tail4
+    400102: Character001Tail4 1
+    400104: Character001Tail4 2
+    400106: Character001Tail5
+    400108: Character001Tail5 1
+    400110: Character001Tail5 2
+    400112: Core
+    400114: Jaw
+    400116: Jaw_armed
+    400118: Jaw_missile
+    400120: neck_armed
+    400122: Skull_Effect
+    400124: Tail_Fin
+    400126: upper_jaw
+    400128: Wing_Armed
+    400130: Wings_lights
+    2100000: Armed_Body_Wire
+    2100002: 21 - Default
+    2100004: Body
+    2100006: 22 - Default
+    4300000: Wing_Armed
+    4300002: Jaw
+    4300004: upper_jaw
+    4300006: neck_armed
+    4300008: Jaw_armed
+    4300010: Tail_Fin
+    4300012: Wings_lights
+    4300014: Jaw_missile
+    4300016: Armor1
+    4300018: Armor2
+    4300020: Armor3
+    4300022: Armor5
+    4300024: Armor6
+    4300026: Armor7
+    4300028: Armor8
+    4300030: Armor9
+    4300032: Armor10
+    4300034: Armor11
+    4300036: Armor12
+    4300038: Armor14
+    4300040: Armor15
+    4300042: Armor16
+    4300044: Skull_Effect
+    4300046: Body
+    4300048: Armor017
+    4300050: Armor018
+    4300052: Armor4
+    4300054: Armor019
+    4300056: Armor020
+    4300058: Armor021
+    4300060: Armor022
+    4300062: Armor023
+    4300064: Armor024
+    4300066: Armor025
+    4300068: Armor026
+    4300070: Armor027
+    4300072: Armor028
+    4300074: Armor029
+    4300076: Armor030
+    4300078: Core
+    7400000: Boss_Silo_Close
+    9500000: //RootNode
+    13700000: Armor017
+    13700002: Armor018
+    13700004: Armor019
+    13700006: Armor020
+    13700008: Armor021
+    13700010: Armor022
+    13700012: Armor023
+    13700014: Armor024
+    13700016: Armor025
+    13700018: Armor026
+    13700020: Armor027
+    13700022: Armor028
+    13700024: Armor029
+    13700026: Armor030
+    13700028: Armor1
+    13700030: Armor10
+    13700032: Armor11
+    13700034: Armor12
+    13700036: Armor14
+    13700038: Armor15
+    13700040: Armor16
+    13700042: Armor2
+    13700044: Armor3
+    13700046: Armor4
+    13700048: Armor5
+    13700050: Armor6
+    13700052: Armor7
+    13700054: Armor8
+    13700056: Armor9
+    13700058: Body
+    13700060: Core
+    13700062: Jaw
+    13700064: Jaw_armed
+    13700066: Jaw_missile
+    13700068: neck_armed
+    13700070: Skull_Effect
+    13700072: Tail_Fin
+    13700074: upper_jaw
+    13700076: Wing_Armed
+    13700078: Wings_lights
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Boss_Silo_Close
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 7
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 7
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
