@@ -24,7 +24,7 @@ namespace Photon.Pun
     /// When Using Trigger Parameters, make sure the component that sets the trigger is higher in the stack of Components on the GameObject than 'PhotonAnimatorView'
     /// Triggers are raised true during one frame only.
     /// </remarks>
-    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(UnityEngine.Animator))]
     [RequireComponent(typeof(PhotonView))]
     [AddComponentMenu("Photon Networking/Photon Animator View")]
     public class PhotonAnimatorView : MonoBehaviour, IPunObservable

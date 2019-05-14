@@ -404,7 +404,7 @@ namespace Photon.Pun
         }
 
         /// <summary>
-        /// Called when a previous OnJoinRandom call failed on the server.
+        /// Called when a previous OpJoinRandom call failed on the server.
         /// </summary>
         /// <remarks>
         /// The most common causes are that a room is full or does not exist (due to someone else being faster or closing the room).
