@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 //
 // 플레이어의 회전, 이동을 담당하는 컴포넌트 스크립트 입니다.
 // 컨트롤러 모드에 따라 카메라 워크 컴포넌트의 모드도 제어됩니다. 
 //
 
-public class NewController : MonoBehaviour
+public class NewController : MonoBehaviour, ILogicEvent
 {
+    EventSet EventSet;
+
     enum Mode
     {
         NORMAL,
@@ -18,7 +18,7 @@ public class NewController : MonoBehaviour
         MODE_OVER
     }
     Mode mode;
-    
+
     Transform CameraTransform;
     NewTPSCamera TPSCam;
 
@@ -45,8 +45,13 @@ public class NewController : MonoBehaviour
     //[SerializeField] GameObject NormalWing;
     //[SerializeField] GameObject EvedeWing;
 
+    void OnEnable()
+    {
+        EventSet = new EventSet(eEventType.FOR_ALL, this);
+        LogicEventListener.RegisterEvent(EventSet);
+    }
 
-    private void Awake()
+    void Awake()
     {
         mode = Mode.NORMAL;
         MoveVector = Vector3.zero;
@@ -55,7 +60,7 @@ public class NewController : MonoBehaviour
     void Start()
     {
         CameraTransform = Camera.main.transform;
-        
+
         anim = GetComponent<Animator>();
         PlayerTransform = GetComponent<Transform>();
         //SpineTransform = anim.GetBoneTransform(HumanBodyBones.Spine);
@@ -63,15 +68,20 @@ public class NewController : MonoBehaviour
 
         // 초기 카메라 모드 설정
         TPSCam.mode = NewTPSCamera.Mode.NORMAL;
-        
+
+
     }
-    
+
+    void OnDisable()
+    {
+        LogicEventListener.UnregisterEvent(EventSet);
+    }
 
     void Update()
     {
-        
+
         // 일반<->회피 기동 모드전환
-        if(Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             mode = Mode.JET;
             //wingAnim.SetBool("onEvade", true);
@@ -99,7 +109,7 @@ public class NewController : MonoBehaviour
             //EvedeWing.SetActive(false);
         }
 
-        
+
 
         switch (mode)
         {
@@ -126,20 +136,20 @@ public class NewController : MonoBehaviour
                 break;
 
         }
-        
+
 
     }
 
     private void LateUpdate()
     {
-        //SpineRotate();
+        SpineRotate();
     }
 
 
     // 일반 상태 회전 + 이동 기능입니다.
     void NormalStateControll()
     {
-        
+
         // 일반 상태 회전
         NormalStateRotation();
 
@@ -215,27 +225,29 @@ public class NewController : MonoBehaviour
         //wingAnim.SetFloat("dirVertical", z);
 
         // 월드 기준 벡터들입니다. 이동 시 모델좌표계로 사상시켜야 함.
-        Vector3 worldY = new Vector3(0, 0, 0);
-        if(Input.GetKey(KeyCode.Space))
+        var worldY = new Vector3(0, 0, 0);
+        if (Input.GetKey(KeyCode.Space))
         {
             worldY.Set(0, 1, 0);
         }
-        else if(Input.GetKey(KeyCode.LeftControl))
+        else if (Input.GetKey(KeyCode.LeftControl))
         {
             worldY.Set(0, -1, 0);
         }
 
-        Vector3 cameraX = CameraTransform.right * x;
-        Vector3 cameraZ = CameraTransform.forward * z;
+        var cameraX = CameraTransform.right * x;
+        var cameraZ = CameraTransform.forward * z;
 
         // 최종 이동방향 결정
-        Vector3 Movement = cameraX + cameraZ + worldY;
+        var Movement = cameraX + cameraZ + worldY;
         Movement.Normalize(); // 방향만 남기기 위해 정규화
         Movement = PlayerTransform.worldToLocalMatrix * Movement; // Translate()에서 사용하기 위해 플레이어 기준으로 사상시킨다.
 
         // 가속
-        if(MoveVector.magnitude < MaxSpeed)
+        if (MoveVector.magnitude < MaxSpeed)
+        {
             MoveVector += Movement * Acceleration * Time.deltaTime;
+        }
 
         // 감속
         MoveVector = MoveVector - (MoveVector * Deceleration * Time.deltaTime);
@@ -257,22 +269,22 @@ public class NewController : MonoBehaviour
         // 이동은 오브젝트의 정면으로만 진행합니다.
         //
 
-        
+
 
 
         float TurnSpeed = 20.0f;
         anim.SetFloat("dirVertical", 1.0f);
         anim.SetFloat("dirHorizon", 0.0f);
-        
+
 
         // 수직축
         float yaw = Input.GetAxis("Horizontal");
-        if(yaw != 0)
+        if (yaw != 0)
         {
-            Vector3 Axis = new Vector3(0, yaw, 0);
-            Vector3 newAxis = PlayerTransform.rotation * Axis;
+            var Axis = new Vector3(0, yaw, 0);
+            var newAxis = PlayerTransform.rotation * Axis;
 
-            Quaternion rot = Quaternion.AngleAxis(TurnSpeed * Time.deltaTime, newAxis);
+            var rot = Quaternion.AngleAxis(TurnSpeed * Time.deltaTime, newAxis);
             PlayerTransform.rotation = rot * PlayerTransform.rotation;
         }
 
@@ -280,10 +292,10 @@ public class NewController : MonoBehaviour
         float pitch = Input.GetAxis("Mouse Y");
         if (pitch != 0)
         {
-            Vector3 Axis = new Vector3(pitch, 0, 0);
-            Vector3 newAxis = PlayerTransform.rotation * Axis;
+            var Axis = new Vector3(pitch, 0, 0);
+            var newAxis = PlayerTransform.rotation * Axis;
 
-            Quaternion rot = Quaternion.AngleAxis(TurnSpeed * 5.0f * Time.deltaTime, newAxis);
+            var rot = Quaternion.AngleAxis(TurnSpeed * 5.0f * Time.deltaTime, newAxis);
             PlayerTransform.rotation = rot * PlayerTransform.rotation;
         }
 
@@ -291,10 +303,10 @@ public class NewController : MonoBehaviour
         float roll = Input.GetAxis("Mouse X");
         if (roll != 0)
         {
-            Vector3 Axis = new Vector3(0, 0, -roll);
-            Vector3 newAxis = PlayerTransform.rotation * Axis;
+            var Axis = new Vector3(0, 0, -roll);
+            var newAxis = PlayerTransform.rotation * Axis;
 
-            Quaternion rot = Quaternion.AngleAxis(TurnSpeed * 5.0f * Time.deltaTime, newAxis);
+            var rot = Quaternion.AngleAxis(TurnSpeed * 5.0f * Time.deltaTime, newAxis);
             PlayerTransform.rotation = rot * PlayerTransform.rotation;
         }
 
@@ -322,5 +334,19 @@ public class NewController : MonoBehaviour
         SpineTransform.rotation = Quaternion.AngleAxis(Y, PlayerTransform.right) * SpineTransform.rotation; // ★사용중
 
         //SpineTransform.rotation = Quaternion.AngleAxis(45f, PlayerTransform.up) * SpineTransform.rotation;
+    }
+
+    public void OnInvoked(eEventMessage msg, params object[] obj)
+    {
+        switch (msg)
+        {
+            case eEventMessage.ON_MENU_OPENED:
+                enabled = false;
+                break;
+
+            case eEventMessage.ON_MENU_CLOSED:
+                enabled = true;
+                break;
+        }
     }
 }

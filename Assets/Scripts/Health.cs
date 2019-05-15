@@ -26,7 +26,7 @@ public class Health : MonoBehaviour
         IsPlayer = gameObject.tag == "Player";
         //CustomDebug.LogCheckAssigned(HealthEvent, this);
         currentHealth = startingHealth;
-        CustomDebug.Log($"{currentHealth}");
+        Dbg.Log($"{currentHealth}");
     }
 
     public void TakeDamage(int amount)
@@ -34,7 +34,7 @@ public class Health : MonoBehaviour
         damaged = true;
 
         currentHealth -= amount;
-        CustomDebug.Log($"{currentHealth}");
+        Dbg.Log($"{currentHealth}");
         if (IsPlayer)
         {
             float healthPointRatio = currentHealth / startingHealth;

@@ -9,7 +9,7 @@ public class ShaderController : MonoBehaviour
 {
     void Start()
     {
-        CustomDebug.LogCheckAssigned(Target, this);
+        Dbg.LogCheckAssigned(Target, this);
 
         int arrayLen = 0;
         foreach (var e in Target.GetComponentsInChildren<Outline_AvgNormal>())

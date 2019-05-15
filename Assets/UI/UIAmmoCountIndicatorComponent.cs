@@ -18,7 +18,7 @@ public class UIAmmoCountIndicatorComponent : MonoBehaviour, ILogicEvent
     void Start()
     {
         AmmoCountText = GetComponent<Text>();
-        CustomDebug.LogCheckAssigned(AmmoCountText);
+        Dbg.LogCheckAssigned(AmmoCountText);
     }
 
     void Disable()

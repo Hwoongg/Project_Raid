@@ -18,7 +18,7 @@ public class UIHealthPointIndicatorComponent : MonoBehaviour, ILogicEvent
     void Start()
     {
         HealthPointText = GetComponent<Text>();
-        CustomDebug.LogCheckAssigned(HealthPointText);
+        Dbg.LogCheckAssigned(HealthPointText);
     }
 
     void OnDisable()

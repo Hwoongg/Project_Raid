@@ -1,60 +1,68 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using System.Collections.Generic;
+using Photon.Pun;
+using MEC;
 
 public class TitleSceneRule : RulePrototype
 {
-    ///// <summary>
-    ///// PressAnyKeys CanvasRenderer for controlling the alpha.
-    ///// </summary>
-    
-    //[SerializeField] Image ScreenFader;
-    
-    ///// <summary>
-    ///// 
-    ///// </summary>
-    
-    ///// <summary>
-    ///// 
-    ///// </summary>
-    //[SerializeField] float Interval = 0.05f;
+    [SerializeField] UIUsername UserName;
+    [SerializeField] UIPassword Password;
+    /// <summary>
+    /// 
+    /// </summary>
+    [SerializeField] Animator[] FlyAwayAnims = new Animator[2];
+    /// <summary>
+    /// 
+    /// </summary>
+    bool IsAnyKeyDown = false;
 
-    //[SerializeField] Animator[] PlayFlyAwayAnims;
-
-    //void Start()
-    //{
-    //    CustomDebug.LogCheckAssigned(PlayFlyAwayAnims[0], this);
-    //    CustomDebug.LogCheckAssigned(PlayFlyAwayAnims[1], this);
-    //    CustomDebug.LogCheckAssigned(ScreenFader, this);
-    //}
+    void Start()
+    {
+        Dbg.LogCheckAssigned(UserName, this);
+        Dbg.LogCheckAssigned(Password, this);
+        Dbg.LogCheckAssigned(FlyAwayAnims[0], this);
+        Dbg.LogCheckAssigned(FlyAwayAnims[1], this);
+    }
 
     //void Update()
     //{
-    //    if (Input.anyKeyDown && false == IsMovingNextScene)
-    //    {
-    //        IsMovingNextScene = true;
-    //        PlayFlyAwayAnims[0].SetTrigger("FlyAway");
-    //        PlayFlyAwayAnims[1].SetTrigger("FlyAway");
-    //        StartCoroutine(_WaitForAnim());
-    //    }
-    //}
-
-    //IEnumerator _WaitForAnim()
-    //{
-    //    float alpha = ScreenFader.color.a;
-    //    bool IsFaded = false;
-    //    while (alpha <= 1.0f)
-    //    {
-    //        alpha += AlphaIncrease * 0.4f;
-    //        ScreenFader.color = new Color(0.0f, 0.0f, 0.0f, alpha);
-    //        yield return Yielder.GetCoroutine(0.045f);
-    //    }
-
-    //    SceneManager.LoadScene("SampleScene");
+    //    //if (Input.anyKeyDown && false == IsAnyKeyDown)
+    //    //{
+    //    //    IsAnyKeyDown = true;
+    //    //    FlyAwayAnims[0].SetTrigger("FlyAway");
+    //    //    FlyAwayAnims[1].SetTrigger("FlyAway");
+    //    //    LogicEventListener.Invoke(eEventType.FOR_SYSTEM, eEventMessage.ON_ANYKEY_PRESSED);
+    //    //}
     //}
 
     public override void OnInvoked(eEventMessage msg, params object[] obj)
     {
+        switch (msg)
+        {
+            case eEventMessage.ON_LOGIN_BUTTON_CLICKED:
+                OnLogin(true);
+                break;
+
+            case eEventMessage.FADER_FULLY_APPEARED:
+                PhotonNetwork.LoadLevel("Stage1");
+                break;
+        }
+    }
+
+    void OnLogin(bool isValid)
+    {
+        FlyAwayAnims[0].SetTrigger("FlyAway");
+        FlyAwayAnims[1].SetTrigger("FlyAway");
+        LogicEventListener.Invoke(eEventType.FOR_SYSTEM, eEventMessage.ON_ANYKEY_PRESSED);
+
+        //if (isValid)
+        //{
+        //
+        //}
+        //else
+        //{
+        //
+        //}
     }
 };

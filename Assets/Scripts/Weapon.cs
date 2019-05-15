@@ -2,8 +2,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Weapon : MonoBehaviour
+public class Weapon : MonoBehaviour, ILogicEvent
 {
+    EventSet EventSet;
+
     [SerializeField] int damagePerShot = 1;
     [SerializeField] float timeBetweenBullets = 0.1f;
     [SerializeField] float range = 100f;
@@ -28,8 +30,13 @@ public class Weapon : MonoBehaviour
 
     AudioSource GunSound;
 
+    void OnEnable()
+    {
+        EventSet = new EventSet(eEventType.FOR_ALL, this);
+        LogicEventListener.RegisterEvent(EventSet);
+    }
 
-    private void Awake()
+    void Awake()
     {
         shootableMask = LayerMask.GetMask("Enemy");
         isReloading = false;
@@ -42,6 +49,11 @@ public class Weapon : MonoBehaviour
         ScreenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
         //animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         animator = GetComponent<Animator>();
+    }
+
+    void OnDisable()
+    {
+        LogicEventListener.UnregisterEvent(EventSet);
     }
 
     void Update()
@@ -146,5 +158,17 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public void OnInvoked(eEventMessage msg, params object[] obj)
+    {
+        switch (msg)
+        {
+            case eEventMessage.ON_MENU_OPENED:
+                enabled = false;
+                break;
 
+            case eEventMessage.ON_MENU_CLOSED:
+                enabled = true;
+                break;
+        }
+    }
 }

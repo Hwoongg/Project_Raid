@@ -29,7 +29,7 @@ public class Outline_AvgNormal : MonoBehaviour
                     {
                         hideFlags = HideFlags.HideAndDontSave
                     };
-                    CustomDebug.Log($"<color=red>Eyes shader is applied! Count : {counter.ToString()}</color>", this);
+                    Dbg.Log($"<color=red>Eyes shader is applied! Count : {counter.ToString()}</color>", this);
                     break;
 
                 case MaterialScriptableObjectPrototype.eShaderType.HAIR:
@@ -38,7 +38,7 @@ public class Outline_AvgNormal : MonoBehaviour
                     {
                         hideFlags = HideFlags.HideAndDontSave
                     };
-                    CustomDebug.Log($"<color=red>Hair shader is applied! Count : {counter.ToString()}</color>", this);
+                    Dbg.Log($"<color=red>Hair shader is applied! Count : {counter.ToString()}</color>", this);
                     break;
 
                 case MaterialScriptableObjectPrototype.eShaderType.NORMAL:
@@ -47,7 +47,7 @@ public class Outline_AvgNormal : MonoBehaviour
                     {
                         hideFlags = HideFlags.HideAndDontSave
                     };
-                    CustomDebug.Log($"<color=red>Normal shader is applied! Count : {counter.ToString()}</color>", this);
+                    Dbg.Log($"<color=red>Normal shader is applied! Count : {counter.ToString()}</color>", this);
                     break;
 
                 default:
@@ -92,7 +92,7 @@ public class Outline_AvgNormal : MonoBehaviour
             if (false == IsNormalAveraged)
             {
                 averagedMesh = Instantiate(GetComponent<SkinnedMeshRenderer>().sharedMesh);
-                CustomDebug.Log($"Vertices Count of {averagedMesh.name} is {averagedMesh.vertexCount}.");
+                Dbg.Log($"Vertices Count of {averagedMesh.name} is {averagedMesh.vertexCount}.");
                 SmoothingGroupExtension.MeshNormalAverage(ref averagedMesh);
                 IsNormalAveraged = true;
             }
