@@ -60,7 +60,7 @@ Material:
     - _FresnelMultiply: 2
     - _FresnelPower: 4
     - _FresnelValue: 1
-    - _LightMultiply: 3.9
+    - _LightMultiply: 6
     - _LightPower: 2.42
     - _Light_Multiply: 5
     - _Light_Power: 1.91
@@ -71,7 +71,7 @@ Material:
     - _TextureValue: 5
     - _Texture_Brightness: 0.3
     - _Time: 2.5
-    - _TimeValue: 2.5
+    - _TimeValue: 4.5
     - _UVPower: 2.3
     - _UVSubtract: 5
     - _UVTexturePower: 2.3

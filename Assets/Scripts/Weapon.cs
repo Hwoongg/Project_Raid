@@ -104,7 +104,7 @@ public class Weapon : MonoBehaviour
         if (Physics.Raycast(ShootRay, out ShootHit, range, shootableMask))
         {
             var objHealth = ShootHit.collider.gameObject.GetComponent<Health>();
-            aimText.text = "Hit";
+            //aimText.text = "Hit";
             objHealth.TakeDamage(1);
         }
         //else

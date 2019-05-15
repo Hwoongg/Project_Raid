@@ -11,6 +11,7 @@ Shader "Custom/Outline_AvgNormal"
 		_OutlineWidth("Outline Width", float) = 0.5
 		_OutlineColor("Outline Color", Color) = (0,0,0,0)
 	}
+
 		SubShader
 		{
 			Tags { "RenderType" = "Opaque" }
@@ -67,51 +68,41 @@ Shader "Custom/Outline_AvgNormal"
 			#pragma shader_feature __NORMAL_ON__
 			#pragma surface surf ToonRamp fullforwardshadows 
 			#pragma target 3.0
-			#pragma vertex vert
 
 			sampler2D _MainTex;
 			sampler2D _NormalTex;
 			sampler2D _RampTex;
 			fixed4 _TintColor;
-			float4 _NormalTex_ST;
+			uniform float4 _NormalTex_ST;
 
 			struct Input
 			{
 				float2 uv_MainTex;
-				float2 uv_Normal : NORMAL;
+				float2 uv_BumpMap;
 			};
 
-			//#pragma lighting ToonRamp //exclude_path::prepass
-					inline half4 LightingToonRamp(SurfaceOutput s, half3 lightDir, half atten)
-					{
-						//lightDir = normalize(lightDir);
-						half d = max(dot(s.Normal, lightDir), 0.0f) * 0.5f + 0.5f;
-						half3 ramp = tex2D(_RampTex, half2(d, d)) * 1.2f;
+			#pragma lighting ToonRamp exclude_path::prepass
+			inline float4 LightingToonRamp(SurfaceOutput s, half3 lightDir, half atten)
+			{
+				//lightDir = normalize(lightDir);
+				half d = max(dot(s.Normal, lightDir), 0.0f) * 0.5f + 0.5f;
+				half3 ramp = tex2D(_RampTex, half2(d, d)) * 1.2f;
 
-						half4 col;
-						col.rgb = s.Albedo * _LightColor0.rgb * ramp; //* (atten * 2.0f);
-						col.a = 0;
-						return col;
-					}
+				half4 col;
+				col.rgb = s.Albedo * _LightColor0.rgb * ramp; //* (atten * 2.0f);
+				col.a = 0;
+				return col;
+			}
 
-					void vert(inout appdata_full v)
-					{
-						float2 newUV = TRANSFORM_TEX(v.texcoord.xy, _NormalTex);
-						v.texcoord1 = float4(newUV, 0, 0);
-					}
+			void surf(Input IN, inout SurfaceOutput o)
+			{
+				fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _TintColor;
+				o.Albedo = c.rgb;
 
-					void surf(Input IN, inout SurfaceOutput o)
-					{
-						fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _TintColor;
-						o.Albedo = c.rgb;
-
-						o.Normal = UnpackNormal(tex2D(_NormalTex, IN.uv_Normal));
-						//#if __NORMAL_ON__
-						//			o.Normal = UnpackNormal(tex2D(_NormalTex, IN.uv_MainTex));
-						//#endif
-									o.Alpha = c.a;
-								}
-								ENDCG
+				o.Normal = UnpackNormal(tex2D(_NormalTex, IN.uv_MainTex * _NormalTex_ST));
+				o.Alpha = c.a;
+			}
+			ENDCG
 		}
 			FallBack "Diffuse"
 }

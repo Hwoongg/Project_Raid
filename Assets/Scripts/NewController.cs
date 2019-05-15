@@ -63,7 +63,6 @@ public class NewController : MonoBehaviour
 
         // 초기 카메라 모드 설정
         TPSCam.mode = NewTPSCamera.Mode.NORMAL;
-
         
     }
     
@@ -133,7 +132,7 @@ public class NewController : MonoBehaviour
 
     private void LateUpdate()
     {
-        SpineRotate();
+        //SpineRotate();
     }
 
 
