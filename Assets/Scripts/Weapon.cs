@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviour, ILogicEvent
 
     float effectDisplayTime = 0.2f;
 
-    [SerializeField] Text aimText;
+    //[SerializeField] Text aimText;
 
     bool isReloading;
     float Reloadtime = 1.5f;

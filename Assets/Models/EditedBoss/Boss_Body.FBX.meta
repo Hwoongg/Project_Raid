@@ -222,7 +222,27 @@ ModelImporter:
     13700076: Wing_Armed
     13700078: Wings_lights
     2186277476908879412: ImportLogs
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 21 - Default
+    second: {fileID: 2100000, guid: 698e9b414e8480446a19bf42b315c356, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 22 - Default
+    second: {fileID: 2100000, guid: df4e508a1005d4e4d96ac2910c1dff63, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Armed_Body_Wire
+    second: {fileID: 2100000, guid: da0fcfa5cfea6374bb28f50b2806e7e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: cc737d76f58156c4292696151488da3b, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -274,7 +294,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 7
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

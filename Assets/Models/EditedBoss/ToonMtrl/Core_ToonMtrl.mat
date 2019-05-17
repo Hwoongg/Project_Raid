@@ -49,7 +49,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
         m_Texture: {fileID: 2800000, guid: 2aa2df72ce2e7e44f8365c7f146da82f, type: 3}
-        m_Scale: {x: 5, y: 5}
+        m_Scale: {x: 15, y: 15}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
