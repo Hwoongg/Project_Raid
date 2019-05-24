@@ -40,7 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7785718083593324976}
-  - component: {fileID: 7785718083586139736}
   m_Layer: 0
   m_Name: Sniper_resize
   m_TagString: Untagged
@@ -63,25 +62,6 @@ Transform:
   m_Father: {fileID: 1756047788858449520}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &7785718083586139736
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7785718083593557392}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: abc881a8ed8c5994f9bf2551aa99d13b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7785718083593557400
 GameObject:
   m_ObjectHideFlags: 0

@@ -52,7 +52,7 @@ public class NewTPSCamera : MonoBehaviour
 
         mode = Mode.NONE;
 
-        LookCorrection.Set(0, 2.0f, 2.0f);
+        LookCorrection.Set(0, 2.0f, 5.0f);
     }
 
 

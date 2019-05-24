@@ -2,41 +2,43 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+//
+// 무기 (총기)에 사용되는 스크립트 입니다.
+//
+
 public class Weapon : MonoBehaviour, ILogicEvent
 {
     EventSet EventSet;
 
     [SerializeField] int damagePerShot = 1;
-    [SerializeField] float timeBetweenBullets = 0.1f;
+    [SerializeField] protected float timeBetweenBullets = 0.1f;
     [SerializeField] float range = 100f;
     [SerializeField] int MaxBullet = 30;
     int CurrentBullet;
 
-    float timer;
+    protected float timer;
     Ray ShootRay;
     RaycastHit ShootHit;
     Vector3 ScreenCenter;
     int shootableMask;
 
-    float effectDisplayTime = 0.2f;
+    protected float effectDisplayTime = 0.2f;
 
-    //[SerializeField] Text aimText;
-
-    bool isReloading;
+    protected bool isReloading;
     float Reloadtime = 1.5f;
-    Animator animator;
+    protected Animator animator;
 
     [SerializeField] GameObject[] objFireEfx;
 
     AudioSource GunSound;
 
-    void OnEnable()
+    protected virtual void OnEnable()
     {
         EventSet = new EventSet(eEventType.FOR_ALL, this);
         LogicEventListener.RegisterEvent(EventSet);
     }
 
-    void Awake()
+    protected virtual void Awake()
     {
         shootableMask = LayerMask.GetMask("Enemy");
         isReloading = false;
@@ -44,19 +46,22 @@ public class Weapon : MonoBehaviour, ILogicEvent
         CurrentBullet = MaxBullet;
     }
 
-    void Start()
+    protected virtual void Start()
     {
         ScreenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
         //animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
+
+        // 컴포넌트 위치를 플레이어 오브젝트에서 총기 오브젝트로 옮기기 위해 수정.
+        animator = GameObject.Find("Player").GetComponent<Animator>(); 
     }
 
-    void OnDisable()
+    protected virtual void OnDisable()
     {
         LogicEventListener.UnregisterEvent(EventSet);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         timer += Time.deltaTime;
 
@@ -93,7 +98,7 @@ public class Weapon : MonoBehaviour, ILogicEvent
     }
 
 
-    void Fire()
+    protected virtual void Fire()
     {
         // 타이머 초기화
         timer = 0f;
@@ -116,13 +121,9 @@ public class Weapon : MonoBehaviour, ILogicEvent
         if (Physics.Raycast(ShootRay, out ShootHit, range, shootableMask))
         {
             var objHealth = ShootHit.collider.gameObject.GetComponent<Health>();
-            //aimText.text = "Hit";
             objHealth.TakeDamage(1);
         }
-        //else
-        //{
-        //    aimText.text = "+";
-        //}
+        
     }
 
     void Reload()
@@ -150,7 +151,7 @@ public class Weapon : MonoBehaviour, ILogicEvent
     }
 
     // Enable 방식으로 작동하는 이펙트의 경우 이곳에서 해제합니다.
-    void DisableEffects()
+    protected void DisableEffects()
     {
         for (int i = 0; i < objFireEfx.Length; i++)
         {
@@ -171,4 +172,6 @@ public class Weapon : MonoBehaviour, ILogicEvent
                 break;
         }
     }
+
+    
 }

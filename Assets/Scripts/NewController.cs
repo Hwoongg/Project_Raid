@@ -9,15 +9,17 @@ public class NewController : MonoBehaviour, ILogicEvent
 {
     EventSet EventSet;
 
-    enum Mode
+    public enum Mode
     {
+        STOP,
         NORMAL,
         JET,
         AIMING,
         FREECAM,
+        SNIPING,
         MODE_OVER
     }
-    Mode mode;
+    [HideInInspector] public Mode mode;
 
     Transform CameraTransform;
     NewTPSCamera TPSCam;
@@ -113,6 +115,9 @@ public class NewController : MonoBehaviour, ILogicEvent
 
         switch (mode)
         {
+            case Mode.STOP:
+                break;
+
             case Mode.NORMAL:
                 // 카메라 모드 제어
                 TPSCam.mode = NewTPSCamera.Mode.NORMAL;
@@ -135,6 +140,11 @@ public class NewController : MonoBehaviour, ILogicEvent
                 NormalStateRotation();
                 break;
 
+            case Mode.SNIPING:
+                TPSCam.mode = NewTPSCamera.Mode.NORMAL;
+                NormalStateRotation(); // 회전만 한다
+                break;
+
         }
 
 
@@ -142,7 +152,7 @@ public class NewController : MonoBehaviour, ILogicEvent
 
     private void LateUpdate()
     {
-        SpineRotate();
+        //SpineRotate();
     }
 
 
