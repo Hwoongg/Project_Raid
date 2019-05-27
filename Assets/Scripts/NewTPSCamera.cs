@@ -18,7 +18,9 @@ public class NewTPSCamera : MonoBehaviour
         NORMAL,
         JETFOLLOW,
         AIMIMG,
-        FREE
+        FREE,
+        SNIPING,
+        MODE_OVER
     }
     [HideInInspector] public Mode mode;
 
@@ -32,6 +34,7 @@ public class NewTPSCamera : MonoBehaviour
     public Transform JetAnchor;
     public Transform AimAnchor;
     public Transform FrontAnchor;
+    public Transform SnipingAnchor;
 
     [SerializeField] float FollowSpeed = 5.0f;
 
@@ -43,6 +46,10 @@ public class NewTPSCamera : MonoBehaviour
     Vector3 FreeCamPos;
     Quaternion FreeCamRot;
 
+    Camera mainCamera;
+    float CameraFOV; // 초기 FOV값 보관용 변수
+    [SerializeField] float ZoominFOVParam = 30.0f;
+
     private void Awake()
     {
         CamTransform = GetComponent<Transform>();
@@ -53,6 +60,9 @@ public class NewTPSCamera : MonoBehaviour
         mode = Mode.NONE;
 
         LookCorrection.Set(0, 2.0f, 5.0f);
+
+        mainCamera = GetComponent<Camera>();
+        CameraFOV = mainCamera.fieldOfView;
     }
 
 
@@ -98,6 +108,9 @@ public class NewTPSCamera : MonoBehaviour
                 FreeStateWork();
                 break;
 
+            case Mode.SNIPING:
+                SnipingStateWork();
+                break;
         }
     }
 
@@ -105,6 +118,7 @@ public class NewTPSCamera : MonoBehaviour
     void NormalStateWork()
     {
         isFreeCamState = false;
+        
         //// 타겟 뒤 상대좌표를 직접 계산하는 방식. 현재 오브젝트를 별도로 마련하여 생략했기 때문에 사용하지 않음.
         //var newPos = FollowTarget.localToWorldMatrix * new Vector4(0.0f, 3.0f, -3.5f, 1);
 
@@ -125,6 +139,9 @@ public class NewTPSCamera : MonoBehaviour
         {
             CamTransform.position = Vector3.Slerp(CamTransform.position, NormalAnchor.position, lerpSpeed);
             CamTransform.rotation = Quaternion.Slerp(CamTransform.rotation, NormalAnchor.rotation, lerpSpeed);
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, CameraFOV, lerpSpeed);
+            
+
             lerpSpeed += FollowSpeed * Time.deltaTime;
             if (lerpSpeed > 1.0f)
                 ModeChange = false;
@@ -208,5 +225,27 @@ public class NewTPSCamera : MonoBehaviour
     {
         CamTransform.position = Vector3.Slerp(CamTransform.position, AimAnchor.position, Time.deltaTime * FollowSpeed);
         CamTransform.rotation = Quaternion.Slerp(CamTransform.rotation, AimAnchor.rotation, Time.deltaTime * FollowSpeed);
+    }
+
+    void SnipingStateWork()
+    {
+        CamTransform.position = Vector3.Slerp(CamTransform.position, SnipingAnchor.position, Time.deltaTime * FollowSpeed);
+        CamTransform.rotation = Quaternion.Slerp(CamTransform.rotation, NormalAnchor.rotation, Time.deltaTime * FollowSpeed);
+
+        mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, ZoominFOVParam, Time.deltaTime * 5.0f);
+    }
+
+    void TargetFocusing(Transform Target)
+    {
+
+    }
+
+    // 모드 접근용 함수. 두번째 인자는 ModeChange 연출 활성화 여부입니다.
+    public void ChangeMode(Mode _mode, bool _change = false)
+    {
+        mode = _mode;
+        ModeChange = _change;
+        if (_change)
+            lerpSpeed = 0;
     }
 }

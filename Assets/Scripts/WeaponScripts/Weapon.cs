@@ -173,5 +173,8 @@ public class Weapon : MonoBehaviour, ILogicEvent
         }
     }
 
-    
+    void CameraRebound()
+    {
+
+    }
 }
