@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-
-public class Health : MonoBehaviour
+public class Health : MonoBehaviourPun
 {
     [SerializeField] int startingHealth = 100;
-    public int GetStartingHealth => startingHealth;
+    public int StartingHealth { get { return startingHealth; } set { startingHealth = value; } }
+
     [SerializeField] bool IsPlayer = false;
+
     [SerializeField] GameObject objExplotionEfx;
 
     int currentHealth;
-    public int GetCurrentHealth => currentHealth;
+    public int CurrentHealth { get { return currentHealth; } set { currentHealth = value; } }
     //[SerializeField] Image damageImage;
     //[SerializeField] float flashSpeed = 0.5f;
     //[SerializeField] Color flashColor = new Color(1f, 0f, 0f, 0.2f);
@@ -21,7 +23,7 @@ public class Health : MonoBehaviour
     protected bool damaged;
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         IsPlayer = gameObject.tag == "Player";
         //CustomDebug.LogCheckAssigned(HealthEvent, this);

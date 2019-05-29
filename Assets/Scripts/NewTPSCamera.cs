@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 //
 // 카메라 워크 스크립트 입니다.
 // 플레이어 머리 뒤의 상대좌표를 추적합니다.
@@ -11,6 +11,25 @@ using UnityEngine;
 
 public class NewTPSCamera : MonoBehaviour
 {
+    /// <summary>Cache field for the PhotonView on this GameObject.</summary>
+    private PhotonView pvCache;
+
+    /// <summary>A cached reference to a PhotonView on this GameObject.</summary>
+    /// <remarks>
+    /// If you intend to work with a PhotonView in a script, it's usually easier to write this.photonView.
+    ///
+    /// If you intend to remove the PhotonView component from the GameObject but keep this Photon.MonoBehaviour,
+    /// avoid this reference or modify this code to use PhotonView.Get(obj) instead.
+    /// </remarks>
+    public PhotonView photonView {
+        get {
+            if (this.pvCache == null)
+            {
+                this.pvCache = GameObject.Find("Player").GetComponent<PhotonView>();
+            }
+            return this.pvCache;
+        }
+    }
 
     public enum Mode
     {
@@ -28,10 +47,10 @@ public class NewTPSCamera : MonoBehaviour
 
     private Transform CamTransform;
 
-    public Transform NormalAnchor;
-    public Transform JetAnchor;
-    public Transform AimAnchor;
-    public Transform FrontAnchor;
+    [HideInInspector] public Transform NormalAnchor;
+    [HideInInspector] public Transform JetAnchor;
+    [HideInInspector] public Transform AimAnchor;
+    [HideInInspector] public Transform FrontAnchor;
 
     [SerializeField] float FollowSpeed = 5.0f;
 
@@ -61,6 +80,11 @@ public class NewTPSCamera : MonoBehaviour
         //FollowTarget = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         FollowTarget = GameObject.Find("Player").transform;
 
+        NormalAnchor = GameObject.Find("NormalAnchor").transform;
+        JetAnchor = GameObject.Find("JetAnchor").transform;
+        AimAnchor = GameObject.Find("AimAnchor").transform;
+        FrontAnchor = GameObject.Find("FrontAnchor").transform;
+
         NormalAnchor.LookAt(FollowTarget.position + LookCorrection);
         JetAnchor.LookAt(FollowTarget.position + LookCorrection);
         AimAnchor.LookAt(FollowTarget.position + LookCorrection);
@@ -77,6 +101,11 @@ public class NewTPSCamera : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (!photonView.IsMine ||!PhotonNetwork.IsConnected)
+        {
+            return;
+        }
+
         switch (mode)
         {
             case Mode.NONE:

@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Stage1/Stage1.unity
     guid: 641baaa21b1f7164699133d7b86f50f6
   - enabled: 1
-    path: Assets/Scenes/Stage1/AdditionalScenes/Stage1Menu.unity
+    path: Assets/Scenes/Stage1/AdditionalScenes/MenuUI.unity
     guid: 8290e39ca7aba0b41bee26190d0bcf7f
+  - enabled: 1
+    path: Assets/Scenes/Stage1/AdditionalScenes/ChatUI.unity
+    guid: aba597b8406a7ee48b91f80941eeac04
   m_configObjects: {}

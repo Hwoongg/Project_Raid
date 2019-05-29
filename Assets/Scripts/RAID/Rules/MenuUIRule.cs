@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class Stage1MenuRule : RulePrototype
+public class MenuUIRule : RulePrototype
 {
     /// <summary>
     /// Exit button that bring us back to the lobby scene.
@@ -35,8 +35,6 @@ public class Stage1MenuRule : RulePrototype
         {
             CloseMenu.onClick.AddListener(OnCloseMenuClicked);
         }
-
-        System.GC.Collect();
     }
 
     void Update()
@@ -62,14 +60,19 @@ public class Stage1MenuRule : RulePrototype
     {
         if (false == IsCloseMenuClicked)
         {
+            Dbg.Log("Menu is closed");
             IsCloseMenuClicked = true;
             LogicEventListener.Invoke(eEventType.FOR_SYSTEM, eEventMessage.ON_MENU_CLOSED);
         }
-    }
-    
+    }    
 
     public override void OnInvoked(eEventMessage msg, params object[] obj)
     {
-
+        switch (msg)
+        {
+            case eEventMessage.ON_MENU_OPENED:
+                IsCloseMenuClicked = false;
+                break;
+        }
     }
 }

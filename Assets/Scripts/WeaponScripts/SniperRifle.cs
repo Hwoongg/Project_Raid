@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 //
 // 쏘는 부분 재정의 하여 뒤로 밀리도록 해야함.
 // 애니메이터 전환 기능.
@@ -52,6 +52,11 @@ public class SniperRifle : SwitchableWeapon
 
     protected override void Update()
     {
+        if (!photonView.IsMine || !PhotonNetwork.IsConnected)
+        {
+            return;
+        }
+
         timer += Time.deltaTime;
 
         

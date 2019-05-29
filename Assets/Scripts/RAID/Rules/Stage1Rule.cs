@@ -1,13 +1,19 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Stage1Rule : RulePrototype
 {
     public static bool IsMenuOpened { get; set; } = false;
+    public static bool IsChatUIOpened { get; set; } = false;
     public static bool IsSceneLoaded { get; set; } = false;
+    [SerializeField] GameObject PlayerPf;
+    public Scene[] Scenes { get; set; } = new Scene[2];
+    public List<GameObject> ChatSceneGOs { get; set; } = new List<GameObject>();
+    public List<GameObject> MenuSceneGOs { get; set; } = new List<GameObject>();
 
     public override void OnLeftRoom()
     {
@@ -17,15 +23,40 @@ public class Stage1Rule : RulePrototype
 
     void Start()
     {
-        if (Application.isEditor)
+        Dbg.LogCheckAssigned(PlayerPf, this);
+
+        //if (Application.isEditor)
+        //{
+        //    var loadedLevel = SceneManager.GetSceneByName("Stage1");
+        //    if (true == loadedLevel.isLoaded)
+        //    {
+        //        SceneManager.SetActiveScene(loadedLevel);
+        //    }
+        //}
+
+        if (Utils.IsNull(WeaponView.LocalPlayerInst) && Utils.IsNull(HealthView.LocalPlayerInst))
         {
-            var loadedLevel = SceneManager.GetSceneByName("Stage1");
-            if (true == loadedLevel.isLoaded)
-            {
-                SceneManager.SetActiveScene(loadedLevel);
-                return;
-            }
+            var player = PhotonNetwork.Instantiate(PlayerPf.name, Vector3.zero, Quaternion.identity);
+            player.name = "Player";
         }
+
+        // Preload all the required scenes for the stage1.
+        SceneManager.LoadScene("ChatUI", LoadSceneMode.Additive);
+        SceneManager.LoadScene("MenuUI", LoadSceneMode.Additive);
+
+        Scenes[0] = SceneManager.GetSceneAt(1);
+        Scenes[1] = SceneManager.GetSceneAt(2);
+
+        // GetRootGameObjects works properly after the scene has been fully loaded!
+        StartCoroutine(Yielder.GetCoroutine(() =>
+        {
+            Scenes[0].GetRootGameObjects(ChatSceneGOs);
+            SwitchChatUI(false);
+            LogicEventListener.Invoke(eEventType.FOR_ALL, eEventMessage.ON_CHAT_UI_LOADED);
+
+            Scenes[1].GetRootGameObjects(MenuSceneGOs);
+            SwitchMenuUI(false);
+        }, 1f));
     }
 
     void Update()
@@ -33,8 +64,47 @@ public class Stage1Rule : RulePrototype
         if (Input.GetKeyDown(KeyCode.Escape) && false == IsMenuOpened)
         {
             IsMenuOpened = true;
-            SceneManager.LoadSceneAsync("Stage1Menu", LoadSceneMode.Additive);
+            SwitchMenuUI(true);
             LogicEventListener.Invoke(eEventType.FOR_SYSTEM, eEventMessage.ON_MENU_OPENED);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return) && false == IsChatUIOpened)
+        {
+            IsChatUIOpened = true;
+            SwitchChatUI(true);
+            LogicEventListener.Invoke(eEventType.FOR_SYSTEM, eEventMessage.ON_CHAT_UI_OPENED);
+        }
+    }
+
+    void SwitchChatUI(bool flag)
+    {
+        int len = ChatSceneGOs.Count;
+        for (int i = 0; i < len; ++i)
+        {
+            if (flag)
+            {
+                ChatSceneGOs[i].SetActive(true);
+            }
+            else
+            {
+                ChatSceneGOs[i].SetActive(false);
+            }
+        }
+    }
+
+    void SwitchMenuUI(bool flag)
+    {
+        int len = MenuSceneGOs.Count;
+        for (int i = 0; i < len; ++i)
+        {
+            if (flag)
+            {
+                MenuSceneGOs[i].SetActive(true);
+            }
+            else
+            {
+                MenuSceneGOs[i].SetActive(false);
+            }
         }
     }
 
@@ -107,7 +177,12 @@ public class Stage1Rule : RulePrototype
         {
             case eEventMessage.ON_MENU_CLOSED:
                 IsMenuOpened = false;
-                SceneManager.UnloadSceneAsync("Stage1Menu", UnloadSceneOptions.None);
+                SwitchMenuUI(false);
+                break;
+
+            case eEventMessage.ON_CHAT_UI_CLOSED:
+                IsChatUIOpened = false;
+                SwitchChatUI(false);
                 break;
         }
     }

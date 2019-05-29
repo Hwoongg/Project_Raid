@@ -4,14 +4,24 @@ using UnityEngine;
 
 public static class Yielder
 {
-    #region Static Constructor.
-    static Yielder()
-    {
-        WaitNextFrame = new WaitForEndOfFrame();
-    }
-    #endregion
-    
-    #region Fields.
+    #region Fields
+    /// <summary>
+    /// WaitNext Frame instance.
+    /// </summary>
+    public static YieldInstruction WaitNextFrame;
+
+    /// <summary>
+    /// WaitSec instance is stored here.
+    /// </summary>
+    internal static Dictionary<float, YieldInstruction> YieldSecondDic =
+        new Dictionary<float, YieldInstruction>();
+
+    internal static Dictionary<int, CustomYieldInstruction> YieldUntilDic =
+        new Dictionary<int, CustomYieldInstruction>();
+
+    internal static Dictionary<int, CustomYieldInstruction> YieldWhileDic =
+        new Dictionary<int, CustomYieldInstruction>();
+
     /// <summary>
     /// Return the WaitSec YieldInstruction, if there's no created instance,
     /// It will create new one.
@@ -21,7 +31,7 @@ public static class Yielder
     internal static YieldInstruction WaitSeconds(float second)
     {
         var t = default(YieldInstruction);
-        if ( false == YieldSecondDic.ContainsKey(second))
+        if (false == YieldSecondDic.ContainsKey(second))
         {
             t = new WaitForSeconds(second);
             YieldSecondDic.Add(second, t);
@@ -76,35 +86,19 @@ public static class Yielder
         }
         return t;
     }
+    #endregion
 
-    /// <summary>
-    /// WaitNext Frame instance.
-    /// </summary>
-    internal static YieldInstruction WaitNextFrame;
-
-    /// <summary>
-    /// WaitSec instance is stored here.
-    /// </summary>
-    internal static Dictionary<float, YieldInstruction> YieldSecondDic =
-        new Dictionary<float, YieldInstruction>();
-
-    internal static Dictionary<int, CustomYieldInstruction> YieldUntilDic =
-        new Dictionary<int, CustomYieldInstruction>();
-
-    internal static Dictionary<int, CustomYieldInstruction> YieldWhileDic =
-        new Dictionary<int, CustomYieldInstruction>();
-
+    #region Static Constructor.
+    static Yielder()
+    {
+        WaitNextFrame = new WaitForEndOfFrame();
+    }
     #endregion
 
     #region Accessors
     public static IEnumerator GetCoroutine(float seconds = 1.0f)
     {
         yield return WaitSeconds(seconds);
-    }
-
-    public static IEnumerator GetCoroutine()
-    {
-        yield return WaitNextFrame;
     }
 
     public static IEnumerator GetCoroutine(System.Action action, float seconds = 1.0f)
@@ -117,6 +111,11 @@ public static class Yielder
     {
         yield return WaitNextFrame;
         action.Invoke();
+    }
+
+    public static IEnumerator Break()
+    {
+        yield break;
     }
     #endregion
 

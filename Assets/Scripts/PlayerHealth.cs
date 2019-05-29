@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 //
 // 화면 깜빡이 기능이 추가된 플레이어 전용 상속 클래스
@@ -8,13 +9,28 @@ using UnityEngine.UI;
 public class PlayerHealth : Health
 {
 
-    [SerializeField] Image damageImage;
+    Image damageImage;
     [SerializeField] float flashSpeed = 0.5f;
     [SerializeField] Color flashColor = new Color(1f, 0f, 0f, 0.2f);
     [SerializeField] GameObject objBarrier;
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        if (Utils.IsNull(damageImage))
+        {
+            damageImage = GameObject.Find("DamageImg").GetComponent<Image>();
+        }
+    }
+
     void Update()
     {
+        if (!photonView.IsMine && !PhotonNetwork.IsConnected)
+        {
+            return;
+        }
+
         // 플레이어용 화면 피격 이펙트 연출
         if (damaged)
         {
