@@ -85,38 +85,9 @@ public class NewController : MonoBehaviourPun, ILogicEvent
         {
             return;
         }
-
-        // 일반<->회피 기동 모드전환
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            mode = Mode.JET;
-            //wingAnim.SetBool("onEvade", true);
-            anim.SetBool("onEvade", true);
-            anim.SetBool("onAiming", false);
-            //NormalWing.SetActive(false);
-            //EvedeWing.SetActive(true);
-        }
-        else if (Input.GetMouseButton(1))
-        {
-            mode = Mode.AIMING;
-            anim.SetBool("onAiming", true);
-        }
-        else if (Input.GetKey(KeyCode.F))
-        {
-            mode = Mode.FREECAM;
-        }
-        else
-        {
-            mode = Mode.NORMAL;
-            //wingAnim.SetBool("onEvade", false);
-            anim.SetBool("onEvade", false);
-            anim.SetBool("onAiming", false);
-            //NormalWing.SetActive(true);
-            //EvedeWing.SetActive(false);
-        }
-
-
-
+        
+        InputControllerState();
+        
         switch (mode)
         {
             case Mode.STOP:
@@ -144,8 +115,9 @@ public class NewController : MonoBehaviourPun, ILogicEvent
                 NormalStateRotation();
                 break;
 
-            case Mode.SNIPING:
-                TPSCam.mode = NewTPSCamera.Mode.NORMAL;
+            case Mode.SNIPING: 
+                // 카메라 전환 코드는 제거하는 편이 좋을 듯
+                //TPSCam.mode = NewTPSCamera.Mode.SNIPING;
                 NormalStateRotation(); // 회전만 한다
                 break;
 
@@ -156,9 +128,54 @@ public class NewController : MonoBehaviourPun, ILogicEvent
 
     private void LateUpdate()
     {
+        // 플레이어 상체 회전. 기능 제거됨.
         //SpineRotate();
     }
 
+    // 입력에 따른 플레이어 모드 세팅.
+    void InputControllerState()
+    {
+        // 저격모드일 경우 제어권이 없습니다.
+        if (mode == Mode.SNIPING)
+            return;
+
+
+        // ////////////////////////////////////
+        //
+        // 입력 지속에 따른 모드 전환부 입니다.
+        // 입력 중단 시 NORMAL 모드로 자동전환되도록 설계되었습니다.
+        // 원치 않을 시 이전에 return 하는 것을 권장합니다.
+        //
+        // ////////////////////////////////////
+
+        if (Input.GetKey(KeyCode.LeftShift)) // 일반<->회피 기동 모드전환
+        {
+            mode = Mode.JET;
+            //wingAnim.SetBool("onEvade", true);
+            anim.SetBool("onEvade", true);
+            anim.SetBool("onAiming", false);
+            //NormalWing.SetActive(false);
+            //EvedeWing.SetActive(true);
+        }
+        else if (Input.GetMouseButton(1)) // 우클릭 조준 모드
+        {
+            mode = Mode.AIMING;
+            anim.SetBool("onAiming", true);
+        }
+        else if (Input.GetKey(KeyCode.F)) // F키 자유 시점
+        {
+            mode = Mode.FREECAM;
+        }
+        else // 입력 없을 시 일반상태로 회귀
+        {
+            mode = Mode.NORMAL;
+            //wingAnim.SetBool("onEvade", false);
+            anim.SetBool("onEvade", false);
+            anim.SetBool("onAiming", false);
+            //NormalWing.SetActive(true);
+            //EvedeWing.SetActive(false);
+        }
+    }
 
     // 일반 상태 회전 + 이동 기능입니다.
     void NormalStateControll()
