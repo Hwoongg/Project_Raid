@@ -99,7 +99,7 @@ public class UICrosshairComponent : MonoBehaviour, ILogicEvent
             {
                 RectTf.anchoredPosition += -MovingDir;
             }
-            yield return Yielder.WaitNextFrame();
+            yield return Yielder.WaitNextFrame;
         }
     }
 
@@ -111,71 +111,10 @@ public class UICrosshairComponent : MonoBehaviour, ILogicEvent
             {
                 FireCounter = Mathf.Min(0, FireCounter - 1);
                 RectTf.anchoredPosition += MovingDir * SpreadStep;
-                yield return Yielder.WaitNextFrame();
+                yield return Yielder.WaitNextFrame;
             }
 
             yield return Yielder.WaitUntil(0, () => FireCounter > 0);
         }
     }
-
-    //IEnumerator _MoveCrosshair()
-    //{
-    //    // Open Crosshair to limit position.
-    //    //switch (PushingDirection)
-    //    //{
-    //    //    case ePushDirection.NORTH:
-    //    //        while (RectTf.anchoredPosition.y <= PositionLimit.y)
-    //    //        {
-    //    //            RectTf.anchoredPosition += new Vector2(0.0f, MovePositionRate.y * MovingSpeed * Time.deltaTime);
-    //    //            yield return Yielder.GetCoroutine();
-    //    //        }
-    //    //        while (RectTf.anchoredPosition.y >= OriginalPosition.y)
-    //    //        {
-    //    //            RectTf.anchoredPosition -= new Vector2(0.0f, MovePositionRate.y * MovingSpeed * Time.deltaTime);
-    //    //            yield return Yielder.GetCoroutine();
-    //    //        }
-    //    //        break;
-    //    //
-    //    //    case ePushDirection.EAST:
-    //    //        while (RectTf.anchoredPosition.x <= PositionLimit.x)
-    //    //        {
-    //    //            RectTf.anchoredPosition += new Vector2(MovePositionRate.x * MovingSpeed * Time.deltaTime, 0.0f);
-    //    //            yield return Yielder.GetCoroutine();
-    //    //        }
-    //    //        while (RectTf.anchoredPosition.x >= OriginalPosition.x)
-    //    //        {
-    //    //            RectTf.anchoredPosition -= new Vector2(MovePositionRate.x * MovingSpeed * Time.deltaTime, 0.0f);
-    //    //            yield return Yielder.GetCoroutine();
-    //    //        }
-    //    //        break;
-    //    //
-    //    //    case ePushDirection.WEST:
-    //    //        while (RectTf.anchoredPosition.x >= PositionLimit.x)
-    //    //        {
-    //    //            RectTf.anchoredPosition += new Vector2(MovePositionRate.x * MovingSpeed * Time.deltaTime, 0.0f);
-    //    //            yield return Yielder.GetCoroutine();
-    //    //        }
-    //    //        while (RectTf.anchoredPosition.x <= OriginalPosition.x)
-    //    //        {
-    //    //            RectTf.anchoredPosition -= new Vector2(MovePositionRate.x * MovingSpeed * Time.deltaTime, 0.0f);
-    //    //            yield return Yielder.GetCoroutine();
-    //    //        }
-    //    //        break;
-    //    //
-    //    //    case ePushDirection.SOUTH:
-    //    //        while (RectTf.anchoredPosition.y >= PositionLimit.y)
-    //    //        {
-    //    //            RectTf.anchoredPosition += new Vector2(0.0f, MovePositionRate.y * MovingSpeed * Time.deltaTime);
-    //    //            yield return Yielder.GetCoroutine();
-    //    //        }
-    //    //        while (RectTf.anchoredPosition.y <= OriginalPosition.y)
-    //    //        {
-    //    //            RectTf.anchoredPosition -= new Vector2(0.0f, MovePositionRate.y * MovingSpeed * Time.deltaTime);
-    //    //            yield return Yielder.GetCoroutine();
-    //    //        }
-    //    //        break;
-    //    //}
-    //}
-
-
 };

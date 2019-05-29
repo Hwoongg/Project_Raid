@@ -364,7 +364,8 @@ MonoBehaviour:
   - {fileID: 8726653660309169120}
   - {fileID: 8726653661331537373}
   WeaponSwitchDelay: 3
-  ReboundPower: {x: 0, y: 0, z: -1}
+  ReboundPower: 5
+  SnipingUI: {fileID: 0}
 --- !u!1 &1591120334443472214
 GameObject:
   m_ObjectHideFlags: 0

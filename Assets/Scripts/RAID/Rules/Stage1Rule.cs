@@ -41,6 +41,11 @@ public class Stage1Rule : RulePrototype
         }
 
         // Preload all the required scenes for the stage1.
+        //AsyncOperation[] additionalSceneStatus = new AsyncOperation[2]{
+        //    SceneManager.LoadSceneAsync("ChatUI", LoadSceneMode.Additive),
+        //    SceneManager.LoadSceneAsync("MenuUI", LoadSceneMode.Additive)
+        //};
+
         SceneManager.LoadScene("ChatUI", LoadSceneMode.Additive);
         SceneManager.LoadScene("MenuUI", LoadSceneMode.Additive);
 
@@ -56,7 +61,7 @@ public class Stage1Rule : RulePrototype
 
             Scenes[1].GetRootGameObjects(MenuSceneGOs);
             SwitchMenuUI(false);
-        }, 1f));
+        }, 0.3f));
     }
 
     void Update()
