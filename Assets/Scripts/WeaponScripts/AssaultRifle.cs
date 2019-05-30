@@ -10,17 +10,24 @@ using UnityEngine;
 
 public class AssaultRifle : SwitchableWeapon
 {
-    
+    NewController playerController;
+    [SerializeField]
+    float MoveableTime = 1.5f;
+    float MoveableTimer;
 
     protected override void OnEnable()
     {
         base.OnEnable();
         Debug.Log("Rifle On");
+
+        MoveableTimer = 0;
     }
 
     protected override void Awake()
     {
         base.Awake();
+
+        playerController = FindObjectOfType<NewController>();
     }
 
     protected override void Start()
@@ -37,7 +44,18 @@ public class AssaultRifle : SwitchableWeapon
     {
         base.Update();
 
-        if(Input.GetKeyDown(KeyCode.Q) && WeaponSwitchTimer > WeaponSwitchDelay)
+        if(MoveableTimer > MoveableTime)
+        {
+            playerController.mode = NewController.Mode.NORMAL;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            // Skill_RapidFire
+            // ...
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q) && WeaponSwitchTimer > WeaponSwitchDelay)
         {
             // 애니메이터 전환.
             animator.SetBool("isSniping", true);
@@ -45,12 +63,8 @@ public class AssaultRifle : SwitchableWeapon
             // 무기 교체
             SwitchWeapons();
         }
-
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            // Skill_RapidFire
-            // ...
-        }
+        
+        MoveableTimer += Time.deltaTime;
     }
 
     void Skill_RapidFire()

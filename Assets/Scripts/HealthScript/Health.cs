@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//
+// 체력 관리(딜교환) 전반에 사용되는 스크립트.
+// 사망 이펙트 기능 포함.
+//
 
 public class Health : MonoBehaviour
 {
     [SerializeField] int startingHealth = 100;
     public int GetStartingHealth => startingHealth;
     [SerializeField] bool IsPlayer = false;
-    [SerializeField] GameObject objExplotionEfx;
+    [SerializeField] GameObject objDeadEffect;
 
     int currentHealth;
     public int GetCurrentHealth => currentHealth;
@@ -17,11 +21,11 @@ public class Health : MonoBehaviour
     //[SerializeField] float flashSpeed = 0.5f;
     //[SerializeField] Color flashColor = new Color(1f, 0f, 0f, 0.2f);
 
-    bool isDead;
+    protected bool isDead;
     protected bool damaged;
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         IsPlayer = gameObject.tag == "Player";
         //CustomDebug.LogCheckAssigned(HealthEvent, this);
@@ -29,7 +33,7 @@ public class Health : MonoBehaviour
         Dbg.Log($"{currentHealth}");
     }
 
-    public void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount)
     {
         damaged = true;
 
@@ -44,14 +48,29 @@ public class Health : MonoBehaviour
         // TODO: 플레이어 아닐떄에만 폭발사
         if (currentHealth <= 0 && !isDead && !IsPlayer)
         {
-            Instantiate(objExplotionEfx, transform.position, transform.rotation);
+            if(objDeadEffect != null)
+                Instantiate(objDeadEffect, transform.position, transform.rotation);
+
             Death();
         }
     }
 
-    void Death()
+    public virtual void Death()
     {
         isDead = true;
         gameObject.SetActive(false);
     }
+
+    public void Recovery()
+    {
+        isDead = false;
+        currentHealth = startingHealth;
+    }
+
+    [ContextMenu("Show HP")]
+    void ShowHP()
+    {
+        Debug.Log(gameObject.name + "의 체력 : " + currentHealth);
+    }
+
 }

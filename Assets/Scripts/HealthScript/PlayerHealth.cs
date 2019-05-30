@@ -21,13 +21,13 @@ public class PlayerHealth : Health
             damageImage.color = flashColor;
             objBarrier.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             objBarrier.SetActive(true);
-
         }
         else
         {
             damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
             objBarrier.transform.localScale = Vector3.Lerp(objBarrier.transform.localScale, new Vector3(3, 3, 3), Time.deltaTime * 20.0f);
         }
+
         damaged = false;
 
         if (damageImage.color.a < 0.13f)
@@ -35,4 +35,7 @@ public class PlayerHealth : Health
             objBarrier.SetActive(false);
         }
     }
+
+    // TakeDamage()는 별도로 선언하지 않으면
+    // 묵시적으로 base의 것으로 자동 선언되는 듯 하다.
 };

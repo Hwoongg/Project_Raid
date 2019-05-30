@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//
+// 폭발 이펙트에 내장될 스크립트입니다.
+// 일정 시간 뒤 이펙트 오브젝트 자신을 자체적으로 삭제하는 스크립트.
+// 추후 Instant Effect로 변경될 것.
+//
+
 public class ExplotionEfx : MonoBehaviour
 {
     float timer;
@@ -9,7 +15,6 @@ public class ExplotionEfx : MonoBehaviour
     private void Awake()
     {
         timer = 0;
-
     }
    
 

@@ -28,7 +28,12 @@ ModelImporter:
     4300006: Sniper_Effect
     7400000: Take 001
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 20 - Default
+    second: {fileID: 2100000, guid: c90dccf81ae24564f8bf6eb8b180454b, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

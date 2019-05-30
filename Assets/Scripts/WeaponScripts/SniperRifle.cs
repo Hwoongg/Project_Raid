@@ -35,7 +35,7 @@ public class SniperRifle : SwitchableWeapon
     protected override void OnEnable()
     {
         base.OnEnable();
-        Debug.Log("Sniping On");
+
         timer = 0;
 
         // 이동 기능 제어를 위한 Controller State 추가
@@ -112,12 +112,6 @@ public class SniperRifle : SwitchableWeapon
         {
             // 애니메이터 전환
             animator.SetBool("isSniping", false);
-
-            //// 저격 UI 비활성화
-            //SnipingUI.SetActive(false);
-
-            //// 카메라 모드 복귀
-            //playerCamera.ChangeMode(NewTPSCamera.Mode.NORMAL, true);
             
             // 무기 교체
             SwitchWeapons();

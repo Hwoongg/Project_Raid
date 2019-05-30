@@ -105,6 +105,7 @@ public class Weapon : MonoBehaviour, ILogicEvent
 
         CurrentBullet -= 1;
 
+        // 카메라 뷰포트 중심 좌표 기준으로 사격 Ray 생성
         ShootRay = Camera.main.ScreenPointToRay(ScreenCenter);
 
         // 각종 이펙트 재생
@@ -120,10 +121,14 @@ public class Weapon : MonoBehaviour, ILogicEvent
         // RayCast
         if (Physics.Raycast(ShootRay, out ShootHit, range, shootableMask))
         {
+            // 플레이어를 쐈을 때 스킵
+            if (ShootHit.collider.tag == "Player")
+                return;
+
             var objHealth = ShootHit.collider.gameObject.GetComponent<Health>();
-            objHealth.TakeDamage(1);
+            objHealth.TakeDamage(damagePerShot);
         }
-        
+
     }
 
     void Reload()
