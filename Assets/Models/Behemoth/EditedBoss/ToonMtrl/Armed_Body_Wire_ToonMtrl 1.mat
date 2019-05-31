@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mag Fade Mat
+  m_Name: Armed_Body_Wire_ToonMtrl 1
   m_Shader: {fileID: 4800000, guid: 9633910500e26c24083f2d79088b8604, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: a787be6dc3ff7264ca9b92e00e9142ee, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -59,6 +59,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: eb2dbc3ed1051da45b8ea9aa576a0607, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 2800000, guid: 2aa2df72ce2e7e44f8365c7f146da82f, type: 3}
+        m_Scale: {x: 15, y: 15}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -67,8 +71,11 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _RampTex:
+        m_Texture: {fileID: 2800000, guid: 5447c94f2ede42148892d8517ba6200b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _0to1: 0.4624566
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -76,27 +83,19 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Intensify: 8
+    - _Intensify: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OutlineWidth: 3
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - _node_1030: 1
-    - _node_2767: 8
-    - _node_307: 1
-    - _node_4624: 0
-    - _node_8156: 0.5395007
-    - _node_901: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _color: {r: 1, g: 0.8212292, b: 0.1367925, a: 1}
-    - _node_300: {r: 1, g: 0.8893678, b: 0.1084906, a: 1}
-    - _node_5415: {r: 0, g: 0, b: 1, a: 1}
-    - _node_7626: {r: 1, g: 0.908805, b: 0.3160377, a: 1}
-    - _node_8527: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0.49019608, g: 0.23529412, b: 0.14509805, a: 0}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
