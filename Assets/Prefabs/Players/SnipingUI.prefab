@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 6405654852096684657}
   - component: {fileID: 6405654852096684656}
   m_Layer: 5
-  m_Name: Sniping UI
+  m_Name: SnipingUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -27,6 +27,7 @@ public class SniperRifle : SwitchableWeapon
     // UI 교체 관련 변수들
     [SerializeField]
     GameObject SnipingUI;
+    GameObject SnipingImg;
     float UiSwitchDelay; // 무기교체 딜레이의 절반으로 초기화 될 것
     float UiTimer;
 
@@ -58,6 +59,8 @@ public class SniperRifle : SwitchableWeapon
     protected override void Start()
     {
         base.Start();
+        SnipingUI = GameObject.Find("SnipingUI");
+        SnipingImg = SnipingUI.gameObject.transform.GetChild(0).gameObject;
     }
 
     protected override void OnDisable()
@@ -65,7 +68,8 @@ public class SniperRifle : SwitchableWeapon
         base.OnDisable();
 
         // 저격 UI 비활성화
-        SnipingUI.SetActive(false);
+        //SnipingUI.SetActive(false);
+        SnipingImg.SetActive(false);
 
         // 카메라 모드 복귀
         playerCamera.ChangeMode(NewTPSCamera.Mode.NORMAL, true);
@@ -105,7 +109,8 @@ public class SniperRifle : SwitchableWeapon
         if (UiTimer > UiSwitchDelay)
         {
             playerCamera.mode = NewTPSCamera.Mode.SNIPING;
-            SnipingUI.SetActive(true);
+            //SnipingUI.SetActive(true);
+            SnipingImg.SetActive(true);
         }
 
 
