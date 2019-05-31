@@ -39,12 +39,14 @@ public class UISplashImageAppearGradually : MonoBehaviour, ILogicEvent
             Image.SetAlpha(alpha);
             yield return Yielder.GetCoroutine(0.05f);
         }
-        //// 한번만 실행되도록 보장.
-        //// Make secure this logic executes once.
-        //if (false == IsFullyAppeared)
-        //{
-        //    IsFullyAppeared = true;
-        //}
+
+        LogicEventListener.Invoke(eEventType.FOR_ALL, eEventMessage.SPLASH_FULLY_APPEARED);
+        // 한번만 실행되도록 보장.
+        // Make secured this logic executes once.
+        if (false == IsFullyAppeared)
+        {
+            IsFullyAppeared = true;
+        }
     }    
 
     public void OnInvoked(eEventMessage msg, params object[] obj)

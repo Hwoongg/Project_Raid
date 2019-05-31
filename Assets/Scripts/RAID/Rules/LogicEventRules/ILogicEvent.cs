@@ -28,8 +28,14 @@ public enum eEventMessage : ulong
 
     ON_MENU_OPENED,
     ON_MENU_CLOSED,
+    ON_CHAT_UI_OPENED,
+    ON_CHAT_UI_CLOSED,
     ON_LOGIN_BUTTON_CLICKED,
     ON_CONNECTED,
+    ON_CHAT_UI_LOADED,
+
+    ON_GAME_ENDED,
+    ON_SHOT_FIRED
 };
 
 public interface ILogicEvent

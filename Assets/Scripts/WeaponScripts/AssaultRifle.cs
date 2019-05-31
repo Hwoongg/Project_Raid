@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 //
 // 애니메이터 전환 기능 추가.
@@ -42,6 +43,11 @@ public class AssaultRifle : SwitchableWeapon
 
     protected override void Update()
     {
+        if (!photonView.IsMine || !PhotonNetwork.IsConnected)
+        {
+            return;
+        }
+
         base.Update();
 
         if(MoveableTimer > MoveableTime)

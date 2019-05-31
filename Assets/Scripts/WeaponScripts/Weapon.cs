@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 //
 // 무기 (총기)에 사용되는 스크립트 입니다.
@@ -8,6 +8,26 @@ using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour, ILogicEvent
 {
+    /// <summary>Cache field for the PhotonView on this GameObject.</summary>
+    private PhotonView pvCache;
+
+    /// <summary>A cached reference to a PhotonView on this GameObject.</summary>
+    /// <remarks>
+    /// If you intend to work with a PhotonView in a script, it's usually easier to write this.photonView.
+    ///
+    /// If you intend to remove the PhotonView component from the GameObject but keep this Photon.MonoBehaviour,
+    /// avoid this reference or modify this code to use PhotonView.Get(obj) instead.
+    /// </remarks>
+    public PhotonView photonView {
+        get {
+            if (this.pvCache == null)
+            {
+                this.pvCache = GameObject.Find("Player").GetComponent<PhotonView>();
+            }
+            return this.pvCache;
+        }
+    }
+
     EventSet EventSet;
 
     [SerializeField] int damagePerShot = 1;
@@ -25,6 +45,7 @@ public class Weapon : MonoBehaviour, ILogicEvent
     protected float effectDisplayTime = 0.2f;
 
     protected bool isReloading;
+    public bool IsReloading { get { return isReloading; } set { isReloading = value; } }
     float Reloadtime = 1.5f;
     protected Animator animator;
 
@@ -53,7 +74,7 @@ public class Weapon : MonoBehaviour, ILogicEvent
         //animator = GetComponent<Animator>();
 
         // 컴포넌트 위치를 플레이어 오브젝트에서 총기 오브젝트로 옮기기 위해 수정.
-        animator = GameObject.Find("Player").GetComponent<Animator>(); 
+        animator = GameObject.Find("Player").GetComponent<Animator>();
     }
 
     protected virtual void OnDisable()
@@ -75,6 +96,7 @@ public class Weapon : MonoBehaviour, ILogicEvent
             if (Input.GetMouseButton(0) && (Time.timeScale != 0))
             {
                 animator.SetBool("onFire", true);
+                LogicEventListener.Invoke(eEventType.FOR_PLAYER, eEventMessage.ON_SHOT_FIRED);
                 if (timer >= timeBetweenBullets)
                 {
                     Fire();
@@ -97,7 +119,6 @@ public class Weapon : MonoBehaviour, ILogicEvent
 
     }
 
-
     protected virtual void Fire()
     {
         // 타이머 초기화
@@ -116,7 +137,7 @@ public class Weapon : MonoBehaviour, ILogicEvent
         {
             objFireEfx[i].SetActive(true);
         }
-        LogicEventListener.Invoke(eEventType.FOR_UI, eEventMessage.ON_AMMUNITION_COUNT_CHANGED, (object)CurrentBullet, (object)MaxBullet);
+        LogicEventListener.Invoke(eEventType.FOR_UI, eEventMessage.ON_AMMUNITION_COUNT_CHANGED, CurrentBullet, MaxBullet);
 
         // RayCast
         if (Physics.Raycast(ShootRay, out ShootHit, range, shootableMask))
@@ -140,6 +161,7 @@ public class Weapon : MonoBehaviour, ILogicEvent
     IEnumerator ReloadingAnimationPlay()
     {
         animator.SetBool("isReloading", true);
+        LogicEventListener.Invoke(eEventType.FOR_UI, eEventMessage.ON_AMMUNITION_COUNT_CHANGED, CurrentBullet, MaxBullet);
         float animatorTime = 0f;
 
         while (animatorTime < Reloadtime)

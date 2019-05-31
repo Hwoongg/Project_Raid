@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 //
 // 체력 관리(딜교환) 전반에 사용되는 스크립트.
 // 사망 이펙트 기능 포함.
 //
 
-public class Health : MonoBehaviour
+public class Health : MonoBehaviourPun
 {
     [SerializeField] int startingHealth = 100;
-    public int GetStartingHealth => startingHealth;
+    public int StartingHealth { get { return startingHealth; } set { startingHealth = value; } }
+
     [SerializeField] bool IsPlayer = false;
     [SerializeField] GameObject objDeadEffect;
 
     int currentHealth;
-    public int GetCurrentHealth => currentHealth;
+    public int CurrentHealth { get { return currentHealth; } set { currentHealth = value; } }
     //[SerializeField] Image damageImage;
     //[SerializeField] float flashSpeed = 0.5f;
     //[SerializeField] Color flashColor = new Color(1f, 0f, 0f, 0.2f);

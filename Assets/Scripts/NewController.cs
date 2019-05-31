@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-
+using Photon.Pun;
 //
 // 플레이어의 회전, 이동을 담당하는 컴포넌트 스크립트 입니다.
 // 컨트롤러 모드에 따라 카메라 워크 컴포넌트의 모드도 제어됩니다. 
 //
 
-public class NewController : MonoBehaviour, ILogicEvent
+public class NewController : MonoBehaviourPun, ILogicEvent
 {
     EventSet EventSet;
 
@@ -81,6 +81,10 @@ public class NewController : MonoBehaviour, ILogicEvent
 
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         
         InputControllerState();
         
