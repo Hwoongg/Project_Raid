@@ -17,7 +17,7 @@ public class SpinBullet : Bullet
 
     void BulletSpin()
     {
-        Quaternion rot = Quaternion.AngleAxis(5.0f, transform.forward);
+        Quaternion rot = Quaternion.AngleAxis(3.0f, transform.forward);
         transform.rotation = transform.rotation * rot;
     }
 }

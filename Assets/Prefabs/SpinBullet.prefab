@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6947194282850354941}
   - component: {fileID: 6947194282850354930}
-  - component: {fileID: 791943406725876831}
+  - component: {fileID: 2374963487169009634}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: SpinBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &791943406725876831
+--- !u!114 &2374963487169009634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,11 +56,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6947194282850354931}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79c9f449ac7534049a58f22e6c412d4b, type: 3}
+  m_Script: {fileID: 11500000, guid: d529e428bf866ad448d8ab9b0318551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 20
-  DestroyTime: 5
+  DestroyTime: 10
 --- !u!1001 &6947194282118247388
 PrefabInstance:
   m_ObjectHideFlags: 0

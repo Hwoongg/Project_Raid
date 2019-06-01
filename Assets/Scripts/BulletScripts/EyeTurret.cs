@@ -27,6 +27,7 @@ public class EyeTurret : MonoBehaviour
     Transform Target;
     [SerializeField] float FindTime = 5.0f;
     float FindTimer;
+    TargetSearcher targetSearcher;
 
     // /////////////////////////////////////////////
     //
@@ -75,6 +76,7 @@ public class EyeTurret : MonoBehaviour
         ReloadTimer = 0;
         state = State.FIRE;
         angleDirection = 1;
+        targetSearcher = GetComponentInChildren<TargetSearcher>();
     }
     
     
@@ -83,7 +85,17 @@ public class EyeTurret : MonoBehaviour
         FindTimer += Time.deltaTime;
 
         if (FindTimer > FindTime)
-            FindTarget();
+        {
+            if(targetSearcher == null)
+            {
+                FindTargetSelf();
+            }
+            else
+            {
+                FindTimer = 0;
+                Target = targetSearcher.GetTargetTransform();
+            }
+        }
 
         if (Target == null)
             return;
@@ -115,7 +127,7 @@ public class EyeTurret : MonoBehaviour
 
     }
 
-    void FindTarget()
+    void FindTargetSelf()
     {
         FindTimer = 0;
         Target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -207,6 +219,5 @@ public class EyeTurret : MonoBehaviour
             ReloadTimer = 0;
         }
     }
-
-
+    
 }
