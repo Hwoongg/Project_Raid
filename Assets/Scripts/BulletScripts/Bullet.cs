@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
     {
         DestroyCount();
         transform.Translate(transform.forward * Speed * Time.deltaTime, Space.World);
-        SpinBullet();
+        
     }
 
     public virtual void Explotion()
@@ -49,9 +49,5 @@ public class Bullet : MonoBehaviour
             Explotion();
     }
 
-    void SpinBullet()
-    {
-        Quaternion rot = Quaternion.AngleAxis(5.0f, transform.forward);
-        transform.rotation = transform.rotation * rot;
-    }
+    
 }
