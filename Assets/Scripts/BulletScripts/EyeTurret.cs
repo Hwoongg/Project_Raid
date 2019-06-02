@@ -6,6 +6,25 @@ using UnityEngine;
 // 구체형 포탑에 사용되는 스크립트.
 //
 
+[System.Serializable]
+public class BulletPoolSet
+{
+    public ObjectPool BulletPool;
+    public float BetweenTime;
+    [HideInInspector] public float BetweenTimer;
+
+    BulletPoolSet()
+    {
+        BetweenTimer = 0;
+    }
+
+    public BulletPoolSet(ObjectPool _pool)
+    {
+        BetweenTimer = 0;
+        BulletPool = _pool;
+    }
+}
+
 public class EyeTurret : MonoBehaviour
 {
     
@@ -36,8 +55,9 @@ public class EyeTurret : MonoBehaviour
     //
     // /////////////////////////////////////////////
 
-    // 발사될 포탄 프리셋
-    [SerializeField] BulletSet[] BulletSets; // Turret.cs 의 상단에 정의되어있음
+    //// 발사될 포탄 프리셋
+    //[SerializeField] BulletSet[] BulletSets; // Turret.cs 의 상단에 정의되어있음
+    [SerializeField] BulletPoolSet bulletPoolSet;
     Muzzle[] FirePoints; // 발사 지점 오브젝트에 Muzzle 컴포넌트가 있어야 한다
     [SerializeField] float MuzzleRotSpeed = 30.0f; // 중심 회전 속도
     [SerializeField] float MuzzleAngleSpeed = 30.0f; // 각도 변화 속도
@@ -68,6 +88,8 @@ public class EyeTurret : MonoBehaviour
     }
     State state;
 
+    BulletColor bulletColor;
+
     private void Awake()
     {
         FirePoints = GetComponentsInChildren<Muzzle>();
@@ -77,6 +99,7 @@ public class EyeTurret : MonoBehaviour
         state = State.FIRE;
         angleDirection = 1;
         targetSearcher = GetComponentInChildren<TargetSearcher>();
+        bulletColor = BulletColor.RED;
     }
     
     
@@ -135,22 +158,39 @@ public class EyeTurret : MonoBehaviour
 
     void Fire()
     {
-        for (int i = 0; i < BulletSets.Length; i++)
+        //for (int i = 0; i < BulletSets.Length; i++)
+        //{
+        //    BulletSets[i].BulletTimer += Time.deltaTime;
+
+        //    if (BulletSets[i].BulletTimer > BulletSets[i].ReloadTime)
+        //    {
+        //        for (int j = 1; j < FirePoints.Length; j++)
+        //        {
+        //            Instantiate(BulletSets[i].bulletObject, FirePoints[j].transform.position,
+        //                FirePoints[j].transform.rotation);
+        //        }
+
+        //        BulletSets[i].BulletTimer = 0;
+        //    }
+
+        //}
+
+
+        bulletPoolSet.BetweenTimer += Time.deltaTime;
+
+        if (bulletPoolSet.BetweenTimer > bulletPoolSet.BetweenTime)
         {
-            BulletSets[i].BulletTimer += Time.deltaTime;
-
-            if (BulletSets[i].BulletTimer > BulletSets[i].ReloadTime)
+            for (int j = 1; j < FirePoints.Length; j++)
             {
-                for (int j = 1; j < FirePoints.Length; j++)
-                {
-                    Instantiate(BulletSets[i].bulletObject, FirePoints[j].transform.position,
-                        FirePoints[j].transform.rotation);
-                }
-
-                BulletSets[i].BulletTimer = 0;
+                bulletPoolSet.BulletPool.Spawn(FirePoints[j].transform.position,
+                        FirePoints[j].transform.rotation, bulletColor);
             }
-            
+            ChangeBulletColor();
+
+            bulletPoolSet.BetweenTimer = 0;
         }
+
+
     }
 
     [ContextMenu("Show Muzzle List")]
@@ -177,8 +217,7 @@ public class EyeTurret : MonoBehaviour
             Vector3.SignedAngle(FirePoints[1].transform.forward,
             FirePoints[0].transform.forward,
             FirePoints[1].transform.right);
-
-        Debug.Log("NowAngle = " + nowAngle);
+        
 
         if (nowAngle > MaxAngle || nowAngle < MinAngle)
         {
@@ -220,4 +259,11 @@ public class EyeTurret : MonoBehaviour
         }
     }
     
+    void ChangeBulletColor()
+    {
+        if (bulletColor == BulletColor.RED)
+            bulletColor = BulletColor.BLUE;
+        else
+            bulletColor = BulletColor.RED;
+    }
 }

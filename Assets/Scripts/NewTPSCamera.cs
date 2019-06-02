@@ -100,13 +100,14 @@ public class NewTPSCamera : MonoBehaviour
         JetAnchor.LookAt(FollowTarget.position + LookCorrection);
         AimAnchor.LookAt(FollowTarget.position + LookCorrection);
         FrontAnchor.LookAt(FollowTarget.position + new Vector3(0, 2, 0));
+        SnipingAnchor.rotation = NormalAnchor.rotation;
 
         //Transform spine = FollowTarget.GetComponent<NewController>().SpineTransform;
         //NormalAnchor.SetParent(spine, true);
         //JetAnchor.SetParent(spine, true);
 
-        
-        
+
+
     }
     
 

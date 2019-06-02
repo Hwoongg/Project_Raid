@@ -631,7 +631,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cc737d76f58156c4292696151488da3b, type: 2}
+  - {fileID: 2100000, guid: 5c402d439abc2c649bdeaf660ff96940, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -708,7 +708,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cc737d76f58156c4292696151488da3b, type: 2}
+  - {fileID: 2100000, guid: 5c402d439abc2c649bdeaf660ff96940, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -777,11 +777,10 @@ MonoBehaviour:
   RotSpeed: 1
   EyeTransform: {fileID: 6059979221327071934}
   FindTime: 5
-  BulletSets:
-  - bulletObject: {fileID: 6947194282850354931, guid: 5753f26682f1699478151b48b28c8a72,
-      type: 3}
-    ReloadTime: 0.1
-    BulletTimer: 0
+  bulletPoolSet:
+    BulletPool: {fileID: 0}
+    BetweenTime: 0.1
+    BetweenTimer: 0
   MuzzleRotSpeed: 30
   MuzzleAngleSpeed: 100
   MinAngle: -30

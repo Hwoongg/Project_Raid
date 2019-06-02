@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         other.GetComponent<PlayerHealth>().TakeDamage(1);
         Explotion();
@@ -46,7 +46,10 @@ public class Bullet : MonoBehaviour
         Timer += Time.deltaTime;
 
         if (Timer > DestroyTime)
+        {
+            Timer = 0;
             Explotion();
+        }
     }
 
     

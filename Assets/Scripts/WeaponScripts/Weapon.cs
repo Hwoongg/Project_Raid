@@ -50,6 +50,7 @@ public class Weapon : MonoBehaviour, ILogicEvent
     protected Animator animator;
 
     [SerializeField] GameObject[] objFireEfx;
+    [SerializeField] GameObject objHitEfx;
 
     AudioSource GunSound;
 
@@ -142,6 +143,8 @@ public class Weapon : MonoBehaviour, ILogicEvent
         // RayCast
         if (Physics.Raycast(ShootRay, out ShootHit, range, shootableMask))
         {
+            objHitEfx.SetActive(true);
+            objHitEfx.transform.position = ShootHit.point;
             // 플레이어를 쐈을 때 스킵
             if (ShootHit.collider.tag == "Player")
                 return;
@@ -183,6 +186,7 @@ public class Weapon : MonoBehaviour, ILogicEvent
         for (int i = 0; i < objFireEfx.Length; i++)
         {
             objFireEfx[i].SetActive(false);
+            objHitEfx.SetActive(false);
         }
     }
 

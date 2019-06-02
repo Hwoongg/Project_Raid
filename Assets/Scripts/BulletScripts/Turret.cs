@@ -6,8 +6,8 @@ using UnityEngine;
 public class BulletSet
 {
     public GameObject bulletObject;
-    public float ReloadTime;
-    [HideInInspector] public float BulletTimer;
+    public float ReloadTime; // 총알 사이 간격 시간
+    [HideInInspector] public float BulletTimer; // 총알 사이 간격 체크용
 
     BulletSet()
     {
