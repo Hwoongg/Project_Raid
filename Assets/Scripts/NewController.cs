@@ -47,6 +47,9 @@ public class NewController : MonoBehaviourPun, ILogicEvent
     //[SerializeField] GameObject NormalWing;
     //[SerializeField] GameObject EvedeWing;
 
+    float BodyResetTimer;
+    Rigidbody myRBody;
+
     void OnEnable()
     {
         EventSet = new EventSet(eEventType.FOR_ALL, this);
@@ -57,6 +60,7 @@ public class NewController : MonoBehaviourPun, ILogicEvent
     {
         mode = Mode.NORMAL;
         MoveVector = Vector3.zero;
+        
     }
 
     void Start()
@@ -71,7 +75,8 @@ public class NewController : MonoBehaviourPun, ILogicEvent
         // 초기 카메라 모드 설정
         TPSCam.mode = NewTPSCamera.Mode.NORMAL;
 
-
+        myRBody = GetComponent<Rigidbody>();
+        BodyResetTimer = 0;
     }
 
     void OnDisable()
@@ -123,6 +128,7 @@ public class NewController : MonoBehaviourPun, ILogicEvent
 
         }
 
+        BodyUpdate();
 
     }
 
@@ -379,5 +385,17 @@ public class NewController : MonoBehaviourPun, ILogicEvent
                 enabled = true;
                 break;
         }
+    }
+
+    void BodyUpdate()
+    {
+        BodyResetTimer += Time.deltaTime;
+
+        if (BodyResetTimer > 1.0f)
+        {
+            myRBody.Sleep();
+            BodyResetTimer = 0;
+        }
+            
     }
 }

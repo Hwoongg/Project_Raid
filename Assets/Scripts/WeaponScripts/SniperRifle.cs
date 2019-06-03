@@ -44,7 +44,6 @@ public class SniperRifle : SwitchableWeapon
 
         // UI 교체 타이머 초기화.
         UiTimer = 0;
-        
     }
 
     protected override void Awake()

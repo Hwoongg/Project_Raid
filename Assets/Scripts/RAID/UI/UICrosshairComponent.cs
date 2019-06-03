@@ -27,7 +27,7 @@ public class UICrosshairComponent : MonoBehaviour, ILogicEvent
     Vector2 OriginalPosition;
 
     RectTransform RectTf;
-    float SpreadStep = 2.0f;
+    float SpreadStep = 10.0f;
     int FireCounter = 0;
     bool IsFiring = false;
     Vector2 MovingDir;

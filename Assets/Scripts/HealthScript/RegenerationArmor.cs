@@ -16,7 +16,6 @@ public class RegenerationArmor : EnemyArmor
     // 교체될 머터리얼. 충돌체와 태그는 내장변수인듯 함.
     [SerializeField] Material WaitmodeMaterial;
     Material AwakeMaterial;
-    SkinnedMeshRenderer meshRenderer;
 
     // 재생되는 시간 관련 변수.
     [SerializeField] float RegenTime; // 재생에 걸리는 시간
@@ -30,14 +29,16 @@ public class RegenerationArmor : EnemyArmor
 
         state = State.DESTRUCTIBLE; // 파괴 가능하도록 자동 초기화
 
-        meshRenderer = GetComponent<SkinnedMeshRenderer>();
+
         AwakeMaterial = meshRenderer.material;
 
     }
 
-    
-    private void Update()
+
+    public override void Update()
     {
+        base.Update();
+
         if (RegenTimer > RegenTime)
         {
             Regeneration();
@@ -45,6 +46,7 @@ public class RegenerationArmor : EnemyArmor
 
         RegenTimer += Time.deltaTime;
     }
+    
 
     public override void Death()
     {

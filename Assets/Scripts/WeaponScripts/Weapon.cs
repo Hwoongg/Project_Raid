@@ -97,7 +97,7 @@ public class Weapon : MonoBehaviour, ILogicEvent
             if (Input.GetMouseButton(0) && (Time.timeScale != 0))
             {
                 animator.SetBool("onFire", true);
-                LogicEventListener.Invoke(eEventType.FOR_PLAYER, eEventMessage.ON_SHOT_FIRED);
+                
                 if (timer >= timeBetweenBullets)
                 {
                     Fire();
@@ -124,6 +124,11 @@ public class Weapon : MonoBehaviour, ILogicEvent
     {
         // 타이머 초기화
         timer = 0f;
+
+        if (CurrentBullet < 1)
+            return;
+
+        LogicEventListener.Invoke(eEventType.FOR_PLAYER, eEventMessage.ON_SHOT_FIRED);
 
         CurrentBullet -= 1;
 

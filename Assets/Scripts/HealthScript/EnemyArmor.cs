@@ -12,7 +12,7 @@ using UnityEngine;
 //
 
 
-public class EnemyArmor : Health
+public class EnemyArmor : BossHealth
 {
 
     // 파괴 가능 여부 상태
@@ -27,9 +27,15 @@ public class EnemyArmor : Health
     [SerializeField] Health MainHealth;
 
     [SerializeField] int ArmorValue;
-    
+
     
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
+    
     public override void TakeDamage(int amount)
     {
         amount -= ArmorValue;
