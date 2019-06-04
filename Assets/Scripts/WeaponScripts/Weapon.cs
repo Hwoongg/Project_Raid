@@ -33,8 +33,8 @@ public class Weapon : MonoBehaviour, ILogicEvent
     [SerializeField] int damagePerShot = 1;
     [SerializeField] protected float timeBetweenBullets = 0.1f;
     [SerializeField] float range = 100f;
-    [SerializeField] int MaxBullet = 30;
-    int CurrentBullet;
+    [SerializeField] public int MaxBullet = 30;
+    [HideInInspector] public int CurrentBullet;
 
     protected float timer;
     Ray ShootRay;

@@ -52,4 +52,9 @@ public class Missile : Bullet
         base.Explotion();
     }
 
+    public override void OnTriggerEnter(Collider other)
+    {
+        other.GetComponent<PlayerHealth>().TakeDamage(5);
+        Explotion();
+    }
 }

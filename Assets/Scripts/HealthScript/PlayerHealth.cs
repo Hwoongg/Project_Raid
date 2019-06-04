@@ -14,9 +14,13 @@ public class PlayerHealth : Health
     [SerializeField] Color flashColor = new Color(1f, 0f, 0f, 0.2f);
     [SerializeField] GameObject objBarrier;
 
+    bool bSlowRecovery;
+
     protected override void Awake()
     {
         base.Awake();
+
+        bSlowRecovery = false;
 
         if (Utils.IsNull(damageImage))
         {
@@ -50,8 +54,25 @@ public class PlayerHealth : Health
         {
             objBarrier.SetActive(false);
         }
+
+        if (CurrentHealth < StartingHealth / 2)
+        {
+            bSlowRecovery = true;
+        }
+
+        if (CurrentHealth == StartingHealth)
+            bSlowRecovery = false;
+
+        if (bSlowRecovery)
+            SlowRecovery();
     }
 
     // TakeDamage()는 별도로 선언하지 않으면
     // 묵시적으로 base의 것으로 자동 선언되는 듯 하다.
+
+    void SlowRecovery()
+    {
+        CurrentHealth += 1;
+        LogicEventListener.Invoke(eEventType.FOR_UI, eEventMessage.ON_HEALTH_POINT_CHANGED, (object)CurrentHealth);
+    }
 };

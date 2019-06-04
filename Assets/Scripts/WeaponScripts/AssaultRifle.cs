@@ -16,6 +16,11 @@ public class AssaultRifle : SwitchableWeapon
     float MoveableTime = 1.5f;
     float MoveableTimer;
 
+    [SerializeField] GameObject[] HideObjects;
+
+    [SerializeField] GameObject ObjSkillEfx;
+    ParticleSystem[] EfxParticles;
+    
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -29,11 +34,14 @@ public class AssaultRifle : SwitchableWeapon
         base.Awake();
 
         playerController = FindObjectOfType<NewController>();
+        
     }
 
     protected override void Start()
     {
         base.Start();
+
+        EfxParticles = ObjSkillEfx.GetComponentsInChildren<ParticleSystem>();
     }
 
     protected override void OnDisable()
@@ -58,7 +66,7 @@ public class AssaultRifle : SwitchableWeapon
         if (Input.GetKeyDown(KeyCode.E))
         {
             // Skill_RapidFire
-            // ...
+            Skill_RapidFire();
         }
 
         if (Input.GetKeyDown(KeyCode.Q) && WeaponSwitchTimer > WeaponSwitchDelay)
@@ -69,12 +77,49 @@ public class AssaultRifle : SwitchableWeapon
             // 무기 교체
             SwitchWeapons();
         }
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skill_Rapid"))
+            HideWeapon();
+        else
+            ViewWeapon();
         
         MoveableTimer += Time.deltaTime;
     }
 
     void Skill_RapidFire()
     {
+        // 애니메이터 전환
+        animator.SetTrigger("Skill_Rapid");
 
+        // 총 오브젝트 제거
+        // ... Update에서 처리
+
+        // 스킬 효과 적용
+        for (int i = 0; i < EfxParticles.Length; i++)
+            EfxParticles[i].Play();
+
+        GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
+
+        for(int i=0; i<Players.Length; i++)
+        {
+            Weapon[] weapons = Players[i].GetComponentsInChildren<Weapon>();
+            for (int j = 0; j < weapons.Length; j++)
+            {
+                weapons[j].CurrentBullet += 100;
+                LogicEventListener.Invoke(eEventType.FOR_UI, eEventMessage.ON_AMMUNITION_COUNT_CHANGED, CurrentBullet, weapons[j].MaxBullet);
+            }
+        }
+    }
+
+    public void HideWeapon()
+    {
+        for (int i = 0; i < HideObjects.Length; i++)
+            HideObjects[i].SetActive(false);
+    }
+
+    public void ViewWeapon()
+    {
+        for (int i = 0; i < HideObjects.Length; i++)
+            HideObjects[i].SetActive(true);
     }
 }

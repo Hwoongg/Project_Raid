@@ -16,12 +16,15 @@ public class Boss : MonoBehaviour
     [SerializeField] Transform[] LeftFireTransform;
     [SerializeField] Transform[] RightFireTransform;
 
+    Health BossHealth;
+
     void Start()
     {
         timer = 0f;
         bMissileLaunch = false;
         bLaunchComplete = false;
         animator = GetComponent<Animator>();
+        BossHealth = GetComponentInChildren<Health>();
     }
     
     void Update()
@@ -57,6 +60,8 @@ public class Boss : MonoBehaviour
 
         }
 
+        if (BossHealth.isDead)
+            gameObject.SetActive(false);
     }
     
 

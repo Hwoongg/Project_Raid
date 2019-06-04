@@ -21,6 +21,10 @@ public class RegenerationArmor : EnemyArmor
     [SerializeField] float RegenTime; // 재생에 걸리는 시간
     float RegenTimer; // 재생 타이머
 
+    // 3개 받게될 것.
+    // 0번 : 재생
+    // 1, 2번 : 파괴
+    ParticleSystem[] Effects;
 
 
     protected override void Awake()
@@ -28,10 +32,10 @@ public class RegenerationArmor : EnemyArmor
         base.Awake();
 
         state = State.DESTRUCTIBLE; // 파괴 가능하도록 자동 초기화
-
-
+        
         AwakeMaterial = meshRenderer.material;
 
+        Effects = GetComponentsInChildren<ParticleSystem>();
     }
 
 
@@ -39,7 +43,7 @@ public class RegenerationArmor : EnemyArmor
     {
         base.Update();
 
-        if (RegenTimer > RegenTime)
+        if (RegenTimer > RegenTime && isDead)
         {
             Regeneration();
         }
@@ -58,6 +62,9 @@ public class RegenerationArmor : EnemyArmor
         //
         // ///////////////////////////////////////////////
 
+        // 이펙트 시작
+        Effects[1].Play();
+        Effects[2].Play();
 
         // 재생 타이머 초기화
         RegenTimer = 0;
@@ -77,22 +84,40 @@ public class RegenerationArmor : EnemyArmor
 
         // 피격불가 오브젝트로 레이어 변경.
         gameObject.layer = LayerMask.NameToLayer("Default");
-
-        // 체력 및 상태 회복
-        Recovery();
-        
     }
 
     // 원상태로 재생하는 함수
     void Regeneration()
     {
+        // 이펙트 시작
+        Effects[0].Play();
+
         // 충돌체 복구
         // ...
 
-        // 머터리얼 복구
-        meshRenderer.material = AwakeMaterial;
+        // 체력 및 상태 회복
+        Recovery();
+
+        StartCoroutine(WaitChangeMaterial());
 
         // 피격 가능하도록 레이어 변경.
         gameObject.layer = LayerMask.NameToLayer("Enemy");
     }
+
+    IEnumerator WaitChangeMaterial()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        meshRenderer.material = AwakeMaterial;
+
+        yield break;
+    }
+
+    //[ContextMenu("ShowParticleList")]
+    //void ShowParticleList()
+    //{
+    //    for (int i = 0; i < Effects.Length; i++)
+    //        Debug.Log(Effects[i]);
+    //}
+
 }

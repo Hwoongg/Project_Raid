@@ -23,7 +23,7 @@ public class Health : MonoBehaviourPun
     //[SerializeField] float flashSpeed = 0.5f;
     //[SerializeField] Color flashColor = new Color(1f, 0f, 0f, 0.2f);
 
-    protected bool isDead;
+    [HideInInspector] public bool isDead;
     protected bool damaged;
 
 
@@ -39,11 +39,13 @@ public class Health : MonoBehaviourPun
     {
         damaged = true;
 
+
         currentHealth -= amount;
+
         Dbg.Log($"{currentHealth}");
         if (IsPlayer)
         {
-            float healthPointRatio = currentHealth / startingHealth;
+            float healthPointRatio = currentHealth /*/ startingHealth * 100.0f*/;
             LogicEventListener.Invoke(eEventType.FOR_UI, eEventMessage.ON_HEALTH_POINT_CHANGED, (object)healthPointRatio);
         }
         

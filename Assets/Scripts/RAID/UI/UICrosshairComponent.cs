@@ -97,7 +97,7 @@ public class UICrosshairComponent : MonoBehaviour, ILogicEvent
             if (Mathf.Abs(RectTf.anchoredPosition.x) > Mathf.Abs(OriginalPosition.x) ||
                 Mathf.Abs(RectTf.anchoredPosition.y) > Mathf.Abs(OriginalPosition.y))
             {
-                RectTf.anchoredPosition += -MovingDir;
+                RectTf.anchoredPosition += -MovingDir * 1.5f;
             }
             yield return Yielder.WaitNextFrame;
         }

@@ -39,7 +39,7 @@ public class SwitchableWeapon : Weapon
 
     // 자신의 파츠들을 등록합니다.
     [SerializeField]
-    GameObject[] MyParts;
+    public GameObject[] MyParts;
 
     // 교체될 파츠들을 등록합니다.
     [SerializeField]
